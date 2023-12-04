@@ -5,23 +5,28 @@ import "./style.css";
 const skills = [
   {
     name: "Html+CSS",
-    color: "yellow",
+    color: "pink",
+    emoji: "👍",
   },
   {
     name: "Angular",
     color: "red",
+    emoji: "👍",
   },
   {
     name: "Javascript",
     color: "green",
+    emoji: "💪",
   },
   {
     name: "WebDesign",
     color: "cyan",
+    emoji: "💯",
   },
   {
     name: "React",
     color: "orange",
+    emoji: "👍",
   },
 ];
 
@@ -62,7 +67,8 @@ function SkillList() {
     <>
       <div className="skill-list">
         {skills.map((skill) => {
-          return <Skill name={skill.name} color={skill.color} />;
+          const { name, color, emoji } = skill;
+          return <Skill name={name} color={color} emoji={emoji} />;
         })}
       </div>
     </>
@@ -70,15 +76,17 @@ function SkillList() {
 }
 
 function Skill(props) {
+  const { name, emoji, color } = props;
   return (
-    <p
+    <div
       className="skill"
       style={{
-        backgroundColor: props.color,
+        backgroundColor: color,
       }}
     >
-      {props.name}
-    </p>
+      <span>{name}</span>
+      <span>{emoji}</span>
+    </div>
   );
 }
 
