@@ -65,12 +65,12 @@ function Intro() {
 function SkillList() {
   return (
     <>
-      <div className="skill-list">
+      <ul className="skill-list">
         {skills.map((skill) => {
           const { name, color, emoji } = skill;
-          return <Skill name={name} color={color} emoji={emoji} />;
+          return <Skill name={name} color={color} emoji={emoji} key={name} />;
         })}
-      </div>
+      </ul>
     </>
   );
 }
@@ -78,7 +78,7 @@ function SkillList() {
 function Skill(props) {
   const { name, emoji, color } = props;
   return (
-    <div
+    <li
       className="skill"
       style={{
         backgroundColor: color,
@@ -86,7 +86,7 @@ function Skill(props) {
     >
       <span>{name}</span>
       <span>{emoji}</span>
-    </div>
+    </li>
   );
 }
 
