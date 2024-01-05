@@ -1,26 +1,36 @@
+import { useState } from "react";
 const messages = [
   "Learn React ⚛️",
   "Apply for jobs 💼",
   "Invest your new income 🤑",
 ];
 
+/*
+Can only put useState() at the beginning of a react function component 
+Can not put useState() under a conditional if statement
+*/
 export default function App() {
-  const step = 1;
+  const [step, setStep] = useState(1);
 
+  //cannot put useState inside a supporting function, which is not a React component
   function handlePrevious() {
-    alert("Previous");
+    if (step > 1) {
+      setStep(step - 1);
+    }
   }
 
   function handleNext() {
-    alert("Next");
+    if (step < 3) {
+      setStep(step + 1);
+    }
   }
 
   return (
     <div className="steps">
       <div className="numbers">
-        <div className={`${step >= 1 ? "active" : ""}`}>1</div>
-        <div className={`${step >= 2 ? "active" : ""}`}>2</div>
-        <div className={`${step >= 3 ? "active" : ""}`}>3</div>
+        <div className={step >= 1 ? "active" : ""}>1</div>
+        <div className={step >= 2 ? "active" : ""}>2</div>
+        <div className={step >= 3 ? "active" : ""}>3</div>
       </div>
 
       <p className="message">
