@@ -2,31 +2,42 @@ import ReactDOM from "react-dom/client";
 import React from "react";
 import "./style.css";
 
+const emojiMap = new Map([
+  ["beginner", "👶"],
+  ["intermediate", "👍"],
+  ["advanced", "💪"],
+]);
+
 const skills = [
   {
-    name: "Html+CSS",
-    color: "pink",
-    emoji: "👍",
+    skill: "HTML+CSS",
+    level: "advanced",
+    color: "#2662EA",
   },
   {
-    name: "Angular",
-    color: "red",
-    emoji: "👍",
+    skill: "JavaScript",
+    level: "advanced",
+    color: "#EFD81D",
   },
   {
-    name: "Javascript",
-    color: "green",
-    emoji: "💪",
+    skill: "Web Design",
+    level: "advanced",
+    color: "#C3DCAF",
   },
   {
-    name: "WebDesign",
-    color: "cyan",
-    emoji: "💯",
+    skill: "Git and GitHub",
+    level: "intermediate",
+    color: "#E84F33",
   },
   {
-    name: "React",
-    color: "orange",
-    emoji: "👍",
+    skill: "React",
+    level: "advanced",
+    color: "#60DAFB",
+  },
+  {
+    skill: "Svelte",
+    level: "beginner",
+    color: "#FF3B00",
   },
 ];
 
@@ -66,9 +77,11 @@ function SkillList() {
   return (
     <>
       <ul className="skill-list">
-        {skills.map((skill) => {
-          const { name, color, emoji } = skill;
-          return <Skill name={name} color={color} emoji={emoji} key={name} />;
+        {skills.map((d) => {
+          const { skill, level, color } = d;
+          return (
+            <Skill skill={skill} color={color} level={level} key={skill} />
+          );
         })}
       </ul>
     </>
@@ -76,7 +89,7 @@ function SkillList() {
 }
 
 function Skill(props) {
-  const { name, emoji, color } = props;
+  const { skill, level, color } = props;
   return (
     <li
       className="skill"
@@ -84,8 +97,24 @@ function Skill(props) {
         backgroundColor: color,
       }}
     >
-      <span>{name}</span>
-      <span>{emoji}</span>
+      <span>{skill}</span>
+
+      {/*Option 1*/}
+      {/*<span>{emojiMap.get(level)}</span>*/}
+
+      {/*Option 2: Conditional text within span tag*/}
+      <span>
+        {level === "beginner" && "👶"}
+        {level === "intermediate" && "👍"}
+        {level === "advanced" && "💪"}
+      </span>
+
+      {/*Option 3: Conditional display html tags*/}
+      {/* 
+        {level === "beginner" ? <span>👶</span> : <></>}
+        {level === "intermediate" ? <span>👍</span> : <></>}
+        {level === "advanced" ? <span>💪</span> : <></>}
+      */}
     </li>
   );
 }
