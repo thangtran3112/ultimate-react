@@ -10,19 +10,30 @@ Can only put useState() at the beginning of a react function component
 Can not put useState() under a conditional if statement
 */
 export default function App() {
+  return (
+    <div>
+      <Step />
+      <Step />
+    </div>
+  );
+}
+
+function Step() {
   const [step, setStep] = useState(1);
   const [isOpen, setIsOpen] = useState(true);
 
   //cannot put useState inside a supporting function, which is not a React component
   function handlePrevious() {
     if (step > 1) {
-      setStep(step - 1);
+      setStep((s) => s - 1);
     }
   }
 
+  //do not use setStep(step+1); as this would have side effect
+  //always pass a callback to setStep() to update state
   function handleNext() {
     if (step < 3) {
-      setStep(step + 1);
+      setStep((s) => s + 1);
     }
   }
 
@@ -32,8 +43,12 @@ export default function App() {
    * () will be used for a piece of code, which returns a value
    */
   return (
-    <>
-      <button className="close" onClick={() => setIsOpen(!isOpen)}>
+    /* Without the <div> here, if we use React.Fragment <> directly,
+      the component will be put into the same location in parent div,
+      which would make UI not functional. We can use React.Fragment if multiple
+      components are mounted to different parent elements only. */
+    <div>
+      <button className="close" onClick={() => setIsOpen((is) => !is)}>
         &times;
       </button>
       {isOpen && (
@@ -72,6 +87,6 @@ export default function App() {
           </div>
         </div>
       )}
-    </>
+    </div>
   );
 }
