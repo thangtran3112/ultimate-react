@@ -1,9 +1,10 @@
 import { useState } from "react";
 import "./style.css";
-import moment from "moment";
+import moment from "../node_modules/moment/moment";
 
 export default function App() {
-  const todayDate = moment().format("D-MM-YYYY");
+  const DATE_FORMAT = "DD-MM-YYYY";
+  const todayDate = moment().format(DATE_FORMAT);
 
   const [step, setStep] = useState(1);
   const [count, setCount] = useState(1);
@@ -13,16 +14,15 @@ export default function App() {
     const numberOfDayChanges = step * count;
     const newDate = moment()
       .add(numberOfDayChanges, "days")
-      .format("D-MM-YYYY");
+      .format(DATE_FORMAT);
     setDate(() => newDate);
   }
 
-  function plusStep() {
-    setStep((s) => s + 1);
-  }
-
-  function minusStep() {
-    setStep((s) => s - 1);
+  /**
+   * @param {{ target: { value: any; }; }} e
+   */
+  function updateStep(e) {
+    setStep(() => Number(e.target.value));
   }
 
   function plusCount() {
@@ -33,12 +33,22 @@ export default function App() {
     setCount((c) => c - 1);
   }
 
+  function resetStates() {
+    setCount(() => 1);
+    setStep(() => 1);
+  }
+
   function Step() {
     return (
       <div>
-        <button onClick={minusStep}>-</button>
-        <span> Step: {step} </span>
-        <button onClick={plusStep}>+</button>
+        <input
+          type="range"
+          min="0"
+          max="10"
+          value={`${step}`}
+          onChange={updateStep}
+        />
+        <span>{step}</span>
       </div>
     );
   }
@@ -47,7 +57,11 @@ export default function App() {
     return (
       <div>
         <button onClick={minusCount}>-</button>
-        <span> Count: {count} </span>
+        <input
+          type="text"
+          value={count}
+          onChange={(e) => setCount(Number(e.target.value))}
+        ></input>
         <button onClick={plusCount}>+</button>
       </div>
     );
@@ -57,14 +71,22 @@ export default function App() {
     const dayChanges = step * count;
     changeDate();
     return (
-      <>
-        <span>
-          {dayChanges >= 0
-            ? `${dayChanges} days from now is: `
-            : `${Math.abs(dayChanges)} days ago was: `}
-        </span>
-        <span>{date}</span>
-      </>
+      <div>
+        <p>
+          {dayChanges === 0 ? "Today is: " : ""}
+          {dayChanges > 0 ? `${dayChanges} days from now is: ` : ""}
+          {dayChanges < 0 ? `${Math.abs(dayChanges)} days ago was: ` : ""}
+          {date}
+        </p>
+      </div>
+    );
+  }
+
+  function Reset() {
+    return (
+      <div>
+        <button onClick={resetStates}>Reset</button>
+      </div>
     );
   }
 
@@ -73,6 +95,7 @@ export default function App() {
       <Step />
       <Count />
       <Banner />
+      <Reset />
     </div>
   );
 }
