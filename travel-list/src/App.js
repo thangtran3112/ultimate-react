@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-const initialItems = [
+/*const initialItems = [
   {
     id: 1,
     description: "Passports",
@@ -19,14 +19,26 @@ const initialItems = [
     quantity: 1,
     packed: false,
   },
-];
+];*/
 
 export default function App() {
+  const [items, setItems] = useState([]);
+  // const [items, setItems] = useState(initialItems);
+
+  function handleAddItems(item) {
+    setItems((currentItems) => [...currentItems, item]);
+  }
+
+  function handleDeleteItem(id) {
+    setItems((items) => items.filter((it) => it.id !== id));
+  }
+
+  //it is a common practice to name the customized props as onAddItems
   return (
     <div className="app">
       <Logo />
-      <Form />
-      <PackingList />
+      <Form onAddItems={handleAddItems} />
+      <PackingList items={items} onDeleteItem={handleDeleteItem} />
       <Stats />
     </div>
   );
@@ -36,7 +48,7 @@ function Logo() {
   return <h1>🏝️Far Away 🧳</h1>;
 }
 
-function Form() {
+function Form({ onAddItems }) {
   const [description, setDescription] = useState("");
   const [quantity, setQuantity] = useState(1);
 
@@ -48,6 +60,7 @@ function Form() {
     const newItem = { description, quantity, packed: false, id: Date.now() };
 
     console.log(newItem);
+    onAddItems(newItem);
 
     //reset description to initial stage
     setDescription("");
@@ -84,25 +97,25 @@ function Form() {
   );
 }
 
-function PackingList() {
+function PackingList({ items, onDeleteItem }) {
   return (
     <div className="list">
       <ul className="list">
-        {initialItems.map((item) => (
-          <Item item={item} key={item.id} />
+        {items.map((item) => (
+          <Item item={item} key={item.id} onDeleteItem={onDeleteItem} />
         ))}
       </ul>
     </div>
   );
 }
 
-function Item({ item }) {
+function Item({ item, onDeleteItem }) {
   return (
     <li>
       <span style={item.packed ? { textDecoration: "line-through" } : {}}>
         {item.quantity} {item.description}
       </span>
-      <button>❌</button>
+      <button onClick={() => onDeleteItem(item.id)}>❌</button>
     </li>
   );
 }
