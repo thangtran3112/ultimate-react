@@ -192,6 +192,28 @@ function MovieDetails({ selectedId, onCloseMovie, onAddWatched, watched }) {
     onCloseMovie();
   }
 
+  useEffect(() => {
+    function callback(e) {
+      if (e.code === "Escape") {
+        onCloseMovie();
+        console.log("CLOSING");
+      }
+    }
+
+    //Add Dom function (not React) when mouting component
+    //Use Esc button to clear movies
+    //We only listen for Escapte key event, when there is an open movie detail
+    document.addEventListener("keydown", callback);
+
+    //Since each time a new movie is loaded (new MovieDetails Component)
+    //There will be accumulated multiple EventListeners will be added
+    //Therefore, we need to run a cleanup function to remove the event
+    //This cleanup will run every time the component is unmount or re-rendered
+    return function () {
+      document.removeEventListener("keydown", callback);
+    };
+  }, [onCloseMovie]);
+
   useEffect(
     function () {
       async function getMovieDetails() {
@@ -216,7 +238,7 @@ function MovieDetails({ selectedId, onCloseMovie, onAddWatched, watched }) {
     //this function will be called later, at that time, title is still the previous value
     return () => {
       document.title = "usePopcorn";
-      console.log(`Clean up effect for movie ${title}`);
+      // console.log(`Clean up effect for movie ${title}`);
     };
   }, [title]);
 
@@ -393,9 +415,8 @@ export default function App() {
           //make sure to empty the error state if data is loaded
           setError("");
         } catch (err) {
-          console.error(err.message);
-
           if (err.name !== "AbortError") {
+            //console.error(err.message);
             setError(() => err.message);
           }
         } finally {
