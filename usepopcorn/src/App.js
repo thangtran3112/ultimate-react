@@ -209,6 +209,17 @@ function MovieDetails({ selectedId, onCloseMovie, onAddWatched, watched }) {
     [selectedId]
   );
 
+  useEffect(() => {
+    if (!title) return;
+    document.title = `Movie | ${title}`;
+
+    //this function will be called later, at that time, title is still the previous value
+    return () => {
+      document.title = "usePopcorn";
+      console.log(`Clean up effect for movie ${title}`);
+    };
+  }, [title]);
+
   return (
     <div className="details">
       {isLoading ? (
@@ -358,13 +369,15 @@ export default function App() {
 
   useEffect(
     function () {
+      const controller = new AbortController();
+
       async function fetchMovies() {
         try {
           setIsLoading(true);
-          setError("");
 
           const res = await fetch(
-            `http://www.omdbapi.com/?apikey=${KEY}&s=${query}`
+            `http://www.omdbapi.com/?apikey=${KEY}&s=${query}`,
+            { signal: controller.signal }
           );
 
           if (!res.ok)
@@ -376,10 +389,15 @@ export default function App() {
           }
 
           setMovies(data.Search);
-          //console.log(data.Search);
+
+          //make sure to empty the error state if data is loaded
+          setError("");
         } catch (err) {
           console.error(err.message);
-          setError(() => err.message);
+
+          if (err.name !== "AbortError") {
+            setError(() => err.message);
+          }
         } finally {
           setIsLoading(false);
         }
@@ -392,6 +410,11 @@ export default function App() {
         return;
       }
       fetchMovies();
+
+      //return clean up function
+      return () => {
+        controller.abort();
+      };
     },
     [query]
   );
