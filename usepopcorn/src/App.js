@@ -430,6 +430,11 @@ export default function App() {
         setError("");
         return;
       }
+
+      //Close the on-screen movie (MovieDetail), whenever we do new searching
+      //We will only fetch movie when searching happens
+      //We can also convert fetchMovies() into an EventListener function, when press 'Enter' button on Search bar
+      handleCloseMovie();
       fetchMovies();
 
       //return clean up function
