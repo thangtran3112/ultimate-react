@@ -1,25 +1,58 @@
 // @ts-nocheck
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState } from "react";
 import StarRating from "./StarRating";
+
+const tempMovieData = [
+  {
+    imdbID: "tt1375666",
+    Title: "Inception",
+    Year: "2010",
+    Poster:
+      "https://m.media-amazon.com/images/M/MV5BMjAxMzY3NjcxNF5BMl5BanBnXkFtZTcwNTI5OTM0Mw@@._V1_SX300.jpg",
+  },
+  {
+    imdbID: "tt0133093",
+    Title: "The Matrix",
+    Year: "1999",
+    Poster:
+      "https://m.media-amazon.com/images/M/MV5BNzQzOTk3OTAtNDQ0Zi00ZTVkLWI0MTEtMDllZjNkYzNjNTc4L2ltYWdlXkEyXkFqcGdeQXVyNjU0OTQ0OTY@._V1_SX300.jpg",
+  },
+  {
+    imdbID: "tt6751668",
+    Title: "Parasite",
+    Year: "2019",
+    Poster:
+      "https://m.media-amazon.com/images/M/MV5BYWZjMjk3ZTItODQ2ZC00NTY5LWE0ZDYtZTI3MjcwN2Q5NTVkXkEyXkFqcGdeQXVyODk4OTc3MTY@._V1_SX300.jpg",
+  },
+];
+
+const tempWatchedData = [
+  {
+    imdbID: "tt1375666",
+    Title: "Inception",
+    Year: "2010",
+    Poster:
+      "https://m.media-amazon.com/images/M/MV5BMjAxMzY3NjcxNF5BMl5BanBnXkFtZTcwNTI5OTM0Mw@@._V1_SX300.jpg",
+    runtime: 148,
+    imdbRating: 8.8,
+    userRating: 10,
+  },
+  {
+    imdbID: "tt0088763",
+    Title: "Back to the Future",
+    Year: "1985",
+    Poster:
+      "https://m.media-amazon.com/images/M/MV5BZmU0M2Y1OGUtZjIxNi00ZjBkLTg1MjgtOWIyNThiZWIwYjRiXkEyXkFqcGdeQXVyMTQxNzMzNDI@._V1_SX300.jpg",
+    runtime: 116,
+    imdbRating: 8.5,
+    userRating: 9,
+  },
+];
 
 const average = (arr) =>
   arr.reduce((acc, cur, i, arr) => acc + cur / arr.length, 0);
 
 function Search({ query, setQuery }) {
-  /* Manually focus Search element through DOM manunipulation, not recommended
-    useEffect(function () {
-    const el = document.querySelector(".search");
-    console.log(el);
-    el.focus();
-  }, []);*/
-
-  const inputEl = useRef(null);
-
-  useEffect(() => {
-    console.log(inputEl.current);
-    inputEl.current.focus();
-  }, []);
-
   return (
     <input
       className="search"
@@ -27,7 +60,6 @@ function Search({ query, setQuery }) {
       placeholder="Search movies..."
       value={query}
       onChange={(e) => setQuery(e.target.value)}
-      ref={inputEl}
     />
   );
 }
@@ -146,26 +178,6 @@ function MovieDetails({ selectedId, onCloseMovie, onAddWatched, watched }) {
     Genre: genre,
   } = movie;
 
-  // conditional hook will cause React problem
-  // if (imdbRating > 8) [isTop, setIsTop] = useState(true);
-
-  // early return will also cause React issue, as the number of hools changes between rendering
-  // if (imdbRating > 8) return <p>Greatest movie ever</p>;
-
-  /*
-  //Initial State will only be set on first mount. Initial state will not be changed on re-rendering
-  const [isTop, setIsTop] = useState(imdbRating > 8);
-  console.log(isTop);
-  //We can use useEffect to change the state when re-rendering
-  useEffect(() => {
-    setIsTop(imdbRating > 8);
-  }, [imdbRating]);*/
-
-  const isTop = imdbRating > 8;
-  console.log(isTop);
-
-  const [avgRating, setAvgRating] = useState(0);
-
   function handleAdd() {
     const newWatchedMovie = {
       imdbID: selectedId,
@@ -177,12 +189,7 @@ function MovieDetails({ selectedId, onCloseMovie, onAddWatched, watched }) {
       userRating,
     };
     onAddWatched(newWatchedMovie);
-    // onCloseMovie();
-
-    //this will use a stale imdbRating, as the state is only updated asynchornously after rendering
-    // setAvgRating(Number(imdbRating));
-    //Use callback to fix state state, such as
-    // setAvgRating(avrRating => (avrRating + imdbRating)/ 2);
+    onCloseMovie();
   }
 
   useEffect(() => {
@@ -360,17 +367,11 @@ const KEY = "b28e9ad6";
 export default function App() {
   const [query, setQuery] = useState("");
   const [movies, setMovies] = useState([]);
+  const [watched, setWatched] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(""); //error message
   const [selectedId, setSelectedId] = useState(null);
-
-  // const [watched, setWatched] = useState([]);
-  //intial state will only be set on initial mount
-  //function in useState must be a pure function, without arguments
-  const [watched, setWatched] = useState(function () {
-    const storedValue = localStorage.getItem("watched");
-    return JSON.parse(storedValue);
-  });
+  //const tempQuery = "interstellar";
 
   function handleSelectMovie(id) {
     setSelectedId((selectedId) => (id === selectedId ? null : id));
@@ -382,30 +383,11 @@ export default function App() {
 
   function handleAddWatch(movie) {
     setWatched((watched) => [...watched, movie]);
-
-    //watched (state) array is updated asynchronously, and will only be updated after re-rendering
-    //we stil need to add the movie to the current watched (state)
-    //localStorage.setItem("watched", JSON.stringify([...watched, movie]));
   }
 
   function handleDeleteWatched(id) {
     setWatched((watched) => watched.filter((movie) => movie.imdbID !== id));
-
-    //localStorage.setItem("watched", JSON.stringify(watched.filter((movie) => (movie.id !== id)))); //reset watched state
   }
-
-  //if we call localStorage.setItem inside handleAddWatch(), we would have to call
-  //it again in handleDeleteWatch() to remove the movie from localStorage
-  //Instead, we can use useEffect to simply sync localStorage with "watched" state,
-  //without the need to update both handleAddWatch() and handleDeleteWatch() event handlers
-  useEffect(
-    function () {
-      //becuase useEffect() hook is called after re-rendered, it has the lastest state of "watched"
-      //we do not need to add [...watched, movie] like in handleAddWatch(movie) method
-      localStorage.setItem("watched", JSON.stringify(watched));
-    },
-    [watched]
-  );
 
   useEffect(
     function () {
