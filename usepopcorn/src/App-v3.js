@@ -3,7 +3,6 @@ import { useEffect, useState, useRef } from "react";
 import StarRating from "./StarRating";
 import { useMovies } from "./useMovies";
 import { useLocalStorageState } from "./useLocalStorageState";
-import { useKey } from "./useKey";
 
 const average = (arr) =>
   arr.reduce((acc, cur, i, arr) => acc + cur / arr.length, 0);
@@ -18,11 +17,22 @@ function Search({ query, setQuery }) {
 
   const inputEl = useRef(null);
 
-  useKey("Enter", function () {
-    if (document.activeElement === inputEl.current) return;
-    inputEl.current.focus();
-    setQuery("");
-  });
+  useEffect(() => {
+    function callback(e) {
+      //console.log(inputEl.current);
+
+      //if search bar is already focus, we do not want to clear its existing text when pressing Enter
+      if (document.activeElement === inputEl.current) return;
+
+      if (e.code === "Enter") {
+        inputEl.current.focus();
+        setQuery("");
+      }
+    }
+
+    document.addEventListener("keydown", callback);
+    return () => document.addEventListener("keydown", callback);
+  }, [setQuery]);
 
   return (
     <input
@@ -201,7 +211,27 @@ function MovieDetails({ selectedId, onCloseMovie, onAddWatched, watched }) {
     // setAvgRating(avrRating => (avrRating + imdbRating)/ 2);
   }
 
-  useKey("Escape", onCloseMovie);
+  useEffect(() => {
+    function callback(e) {
+      if (e.code === "Escape") {
+        onCloseMovie();
+        console.log("CLOSING");
+      }
+    }
+
+    //Add Dom function (not React) when mouting component
+    //Use Esc button to clear movies
+    //We only listen for Escapte key event, when there is an open movie detail
+    document.addEventListener("keydown", callback);
+
+    //Since each time a new movie is loaded (new MovieDetails Component)
+    //There will be accumulated multiple EventListeners will be added
+    //Therefore, we need to run a cleanup function to remove the event
+    //This cleanup will run every time the component is unmount or re-rendered
+    return function () {
+      document.removeEventListener("keydown", callback);
+    };
+  }, [onCloseMovie]);
 
   useEffect(
     function () {
