@@ -1,6 +1,8 @@
 // @ts-nocheck
 import { useEffect, useState, useRef } from "react";
 import StarRating from "./StarRating";
+import { useMovies } from "./useMovies";
+import { useLocalStorageState } from "./useLocalStorageState";
 
 const average = (arr) =>
   arr.reduce((acc, cur, i, arr) => acc + cur / arr.length, 0);
@@ -16,9 +18,21 @@ function Search({ query, setQuery }) {
   const inputEl = useRef(null);
 
   useEffect(() => {
-    console.log(inputEl.current);
-    inputEl.current.focus();
-  }, []);
+    function callback(e) {
+      //console.log(inputEl.current);
+
+      //if search bar is already focus, we do not want to clear its existing text when pressing Enter
+      if (document.activeElement === inputEl.current) return;
+
+      if (e.code === "Enter") {
+        inputEl.current.focus();
+        setQuery("");
+      }
+    }
+
+    document.addEventListener("keydown", callback);
+    return () => document.addEventListener("keydown", callback);
+  }, [setQuery]);
 
   return (
     <input
@@ -127,6 +141,17 @@ function MovieDetails({ selectedId, onCloseMovie, onAddWatched, watched }) {
   const [isLoading, setIsLoading] = useState(false);
   const [userRating, setUserRating] = useState("");
 
+  const countRef = useRef(0);
+
+  useEffect(
+    function () {
+      if (userRating) {
+        countRef.current = countRef.current + 1;
+      }
+    },
+    [userRating]
+  );
+
   const isWatched = watched.map((movie) => movie.imdbID).includes(selectedId);
   const watchedUserRating = watched.find(
     (movie) => movie.imdbID === selectedId
@@ -175,9 +200,10 @@ function MovieDetails({ selectedId, onCloseMovie, onAddWatched, watched }) {
       imdbRating: Number(imdbRating),
       runtime: Number(runtime.split(" ").at(0)),
       userRating,
+      countRatingDecisions: countRef.current,
     };
     onAddWatched(newWatchedMovie);
-    // onCloseMovie();
+    onCloseMovie();
 
     //this will use a stale imdbRating, as the state is only updated asynchornously after rendering
     // setAvgRating(Number(imdbRating));
@@ -359,18 +385,18 @@ const KEY = "b28e9ad6";
 
 export default function App() {
   const [query, setQuery] = useState("");
-  const [movies, setMovies] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState(""); //error message
   const [selectedId, setSelectedId] = useState(null);
+  const { movies, isLoading, error } = useMovies(query);
+
+  const [watched, setWatched] = useLocalStorageState([], "watched");
 
   // const [watched, setWatched] = useState([]);
   //intial state will only be set on initial mount
   //function in useState must be a pure function, without arguments
-  const [watched, setWatched] = useState(function () {
+  /*const [watched, setWatched] = useState(function () {
     const storedValue = localStorage.getItem("watched");
     return JSON.parse(storedValue);
-  });
+  });*/
 
   function handleSelectMovie(id) {
     setSelectedId((selectedId) => (id === selectedId ? null : id));
@@ -398,70 +424,14 @@ export default function App() {
   //it again in handleDeleteWatch() to remove the movie from localStorage
   //Instead, we can use useEffect to simply sync localStorage with "watched" state,
   //without the need to update both handleAddWatch() and handleDeleteWatch() event handlers
-  useEffect(
+  /*useEffect(
     function () {
       //becuase useEffect() hook is called after re-rendered, it has the lastest state of "watched"
       //we do not need to add [...watched, movie] like in handleAddWatch(movie) method
       localStorage.setItem("watched", JSON.stringify(watched));
     },
     [watched]
-  );
-
-  useEffect(
-    function () {
-      const controller = new AbortController();
-
-      async function fetchMovies() {
-        try {
-          setIsLoading(true);
-
-          const res = await fetch(
-            `http://www.omdbapi.com/?apikey=${KEY}&s=${query}`,
-            { signal: controller.signal }
-          );
-
-          if (!res.ok)
-            throw new Error("Something went wrong with fetching movies");
-
-          const data = await res.json();
-          if (data.Response === "False") {
-            throw new Error("Movies Not Found");
-          }
-
-          setMovies(data.Search);
-
-          //make sure to empty the error state if data is loaded
-          setError("");
-        } catch (err) {
-          if (err.name !== "AbortError") {
-            //console.error(err.message);
-            setError(() => err.message);
-          }
-        } finally {
-          setIsLoading(false);
-        }
-      }
-
-      //only search when query string is having more than 3 characters
-      if (query.length < 3) {
-        setMovies([]);
-        setError("");
-        return;
-      }
-
-      //Close the on-screen movie (MovieDetail), whenever we do new searching
-      //We will only fetch movie when searching happens
-      //We can also convert fetchMovies() into an EventListener function, when press 'Enter' button on Search bar
-      handleCloseMovie();
-      fetchMovies();
-
-      //return clean up function
-      return () => {
-        controller.abort();
-      };
-    },
-    [query]
-  );
+  );*/
 
   return (
     <>
