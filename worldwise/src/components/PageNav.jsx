@@ -1,12 +1,12 @@
 import { NavLink } from "react-router-dom";
-
+import styles from "./PageNav.module.css";
 /**
  *
  * Using <NavLink> instead of <Link> will show class="active" for selected link
  */
 function PageNav() {
   return (
-    <nav>
+    <nav className={styles.nav}>
       <ul>
         <li>
           <NavLink to="/">Home</NavLink>

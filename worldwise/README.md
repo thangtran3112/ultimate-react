@@ -12,3 +12,7 @@ Currently, two official plugins are available:
 # Eslint
 
 `npm i eslint vite-plugin-eslint eslint-config-react-app --save-dev`
+
+# Flex container
+
+- [Flex Container CSS](https://css-tricks.com/snippets/css/a-guide-to-flexbox/)

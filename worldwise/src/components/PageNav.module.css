@@ -1,0 +1,23 @@
+.nav {
+  background-color: coral;
+}
+/* Read more about Flex container here https://css-tricks.com/snippets/css/a-guide-to-flexbox/ */
+.nav ul {
+  display: flex;
+  justify-content: space-between;
+  list-style: none;
+}
+
+/*
+NavLink with 'active' class will get the global css style by <a class="active/> 
+If we are not using :global(), NavLink will be under random class, such as <nav class="_nav_15w5n_1">
+And it will not render background-color
+*/
+.nav :global(.active) {
+  background-color: green;
+}
+
+/*Turn css into global and can be referred by string literal*/
+:global(.test) {
+  background-color: red;
+}
