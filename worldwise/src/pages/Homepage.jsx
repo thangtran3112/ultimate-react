@@ -1,8 +1,15 @@
+import { Link } from "react-router-dom";
+import PageNav from "../components/PageNav";
+
+/**If we use <a> tag, page will be reloaded
+ * Using Link, there is not actual page reloaded
+ */
 function Homepage() {
   return (
     <div>
+      <PageNav />
       <h1>WorldWise</h1>
-      <a href="/pricing">Pricing</a>
+      <Link to="/pricing">Pricing</Link>
     </div>
   );
 }
