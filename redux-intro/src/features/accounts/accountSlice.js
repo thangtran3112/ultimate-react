@@ -47,7 +47,9 @@ export default function accountReducer(state = initialAccountState, action) {
 //this has become a middleware function
 export function deposit(amount, currency) {
   if (currency === "USD") return { type: "account/deposit", payload: amount };
+
   //return a dispatch function instead. Redux know this is a side effect and sent to middleware instead
+  //this async function is sitting between Dispatch and Reducer
   return async function (dispatch, getState) {
     //Set Loading
     dispatch({ type: "account/convertingCurrency" });
