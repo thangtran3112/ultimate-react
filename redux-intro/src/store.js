@@ -1,4 +1,4 @@
-import { createStore } from "redux";
+import { combineReducers, createStore } from "redux";
 
 const initialState = {
   balance: 0,
@@ -6,11 +6,17 @@ const initialState = {
   loanPurpose: "",
 };
 
+const initialStateCustomer = {
+  fullName: "",
+  nationalID: "",
+  createdAt: "",
+};
+
 // const ACCOUNT_DEPOSIT = "account/deposit";
 
 //pure functions only, no side effects.
 //default of initialState at the beginning
-function reducer(state = initialState, action) {
+function accountReducer(state = initialState, action) {
   switch (action.type) {
     case "account/deposit":
       return { ...state, balance: state.balance + action.payload };
@@ -37,7 +43,31 @@ function reducer(state = initialState, action) {
   }
 }
 
-const store = createStore(reducer);
+function customerReducer(state = initialStateCustomer, action) {
+  switch (action.type) {
+    case "customer/createCustomer":
+      return {
+        ...state,
+        fullName: action.payload.fullName,
+        nationalID: action.payload.nationalID,
+        createdAt: action.payload.createdAt,
+      };
+    case "customer/updateName":
+      return {
+        ...state,
+        fullName: action.payload,
+      };
+    default:
+      return state;
+  }
+}
+
+const rootReducer = combineReducers({
+  account: accountReducer,
+  customer: customerReducer,
+});
+
+const store = createStore(rootReducer);
 
 // store.dispatch({ type: "account/deposit", payload: 500 });
 // store.dispatch({ type: "account/withdraw", payload: 200 });
@@ -83,4 +113,27 @@ store.dispatch(requestLoan(1000, "Buy a cheap car"));
 console.log(store.getState());
 
 store.dispatch(payLoan());
+console.log(store.getState());
+
+function createCustomer(fullName, nationalID) {
+  return {
+    type: "customer/createCustomer",
+    payload: {
+      fullName,
+      nationalID,
+      createdAt: new Date().toISOString(), //side effect
+    },
+  };
+}
+
+function updateName(fullName) {
+  return {
+    type: "account/updateName",
+    payload: fullName,
+  };
+}
+
+store.dispatch(createCustomer("Thang Tran", "111222333"));
+console.log(store.getState());
+store.dispatch(deposit(150));
 console.log(store.getState());
