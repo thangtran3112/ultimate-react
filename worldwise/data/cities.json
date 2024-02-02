@@ -35,6 +35,126 @@
         "lng": 13.376933665713324
       },
       "id": 98443197
+    },
+    {
+      "cityName": "Helechosa de los Montes",
+      "country": "Spain",
+      "emoji": "🇪🇸",
+      "date": "2024-02-02T23:17:46.949Z",
+      "notes": "test",
+      "position": {
+        "lat": "39.35205509735803",
+        "lng": "-4.899900182561273"
+      },
+      "id": 98443198
+    },
+    {
+      "cityName": "Bay of Gibraltar",
+      "country": "Spain",
+      "emoji": "🇪🇸",
+      "date": "2024-02-02T23:22:21.721Z",
+      "notes": "test",
+      "position": {
+        "lat": "36.105151426164305",
+        "lng": "-5.4051677502952336"
+      },
+      "id": 98443199
+    },
+    {
+      "cityName": "Bay of Gibraltar",
+      "country": "Spain",
+      "emoji": "🇪🇸",
+      "date": "2024-02-02T23:22:21.721Z",
+      "notes": "test",
+      "position": {
+        "lat": "36.105151426164305",
+        "lng": "-5.4051677502952336"
+      },
+      "id": 98443200
+    },
+    {
+      "cityName": "Ait Ourir",
+      "country": "Morocco",
+      "emoji": "🇲🇦",
+      "date": "2024-02-02T23:25:30.226Z",
+      "notes": "test",
+      "position": {
+        "lat": "31.448987175735155",
+        "lng": "-7.866137224668462"
+      },
+      "id": 98443201
+    },
+    {
+      "cityName": "Villenoy",
+      "country": "France",
+      "emoji": "🇫🇷",
+      "date": "2024-02-02T23:25:30.226Z",
+      "notes": "test",
+      "position": {
+        "lat": "48.93621869081553",
+        "lng": "2.834281031739461"
+      },
+      "id": 98443202
+    },
+    {
+      "cityName": "Villenoy",
+      "country": "France",
+      "emoji": "🇫🇷",
+      "date": "2024-02-02T23:25:30.226Z",
+      "notes": "test",
+      "position": {
+        "lat": "48.93621869081553",
+        "lng": "2.834281031739461"
+      },
+      "id": 98443203
+    },
+    {
+      "cityName": "Villenoy",
+      "country": "France",
+      "emoji": "🇫🇷",
+      "date": "2024-02-02T23:25:30.226Z",
+      "notes": "test",
+      "position": {
+        "lat": "48.93621869081553",
+        "lng": "2.834281031739461"
+      },
+      "id": 98443204
+    },
+    {
+      "cityName": "Ordino",
+      "country": "Andorra",
+      "emoji": "🇦🇩",
+      "date": "2024-02-02T23:27:40.580Z",
+      "notes": "test",
+      "position": {
+        "lat": "42.56958238143497",
+        "lng": "1.560006345877012"
+      },
+      "id": 98443205
+    },
+    {
+      "cityName": "Alcublas",
+      "country": "Spain",
+      "emoji": "🇪🇸",
+      "date": "2024-02-02T23:28:27.895Z",
+      "notes": "async",
+      "position": {
+        "lat": "39.792890408431994",
+        "lng": "-0.7030475605203913"
+      },
+      "id": 98443206
+    },
+    {
+      "cityName": "London",
+      "country": "United Kingdom of Great Britain and Northern Ireland (the)",
+      "emoji": "🇬🇧",
+      "date": "2024-02-02T23:30:36.261Z",
+      "notes": "test",
+      "position": {
+        "lat": "51.51383161916103",
+        "lng": "-0.07686918256701869"
+      },
+      "id": 98443207
     }
   ]
 }

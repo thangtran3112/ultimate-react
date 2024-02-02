@@ -28,3 +28,5 @@ Currently, two official plugins are available:
 
 - [React Leaflet](https://react-leaflet.js.org/docs/start-installation/)
 - [Leaflet base lib](https://leafletjs.com/examples/quick-start/)
+
+# [Date picker](https://www.npmjs.com/package/react-datepicker)
