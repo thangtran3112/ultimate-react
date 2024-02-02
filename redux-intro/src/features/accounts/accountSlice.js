@@ -34,17 +34,45 @@ const accountSlice = createSlice({
         state.balance += action.payload.amount;
       },
     },
-    payLoan(state, action) {
+    payLoan(state) {
       state.loanPurpose = "";
       state.balance -= state.loan;
       state.loan = 0;
+    },
+    convertingCurrency(state) {
+      state.isLoading = true;
     },
   },
 });
 
 console.log(accountSlice);
 
-export const { deposit, withdraw, requestLoan, payLoan } = accountSlice.actions;
+//accountSlice.actions will contains all automatically created ActionCreators
+export const { withdraw, requestLoan, payLoan, convertingCurrency } =
+  accountSlice.actions;
+
+//we need to remove the automatically deposit ActionCreator from previous export
+export function deposit(amount, currency) {
+  if (currency === "USD") return { type: "account/deposit", payload: amount };
+
+  //return a dispatch function instead. Redux know this is a side effect and sent to middleware instead
+  //this async function is sitting between Dispatch and Reducer
+  return async function (dispatch, getState) {
+    //Maybe we can also use the previous dispatch:
+    dispatch({ type: "account/convertingCurrency" });
+    //dispatch(convertingCurrency());
+
+    //API call
+    const res = await fetch(
+      `https://api.frankfurter.app/latest?amount=${amount}&from=${currency}&to=USD`
+    );
+    const data = await res.json();
+    const converted = data.rates.USD;
+    //call the reducer
+    dispatch({ type: "account/deposit", payload: converted });
+  };
+}
+
 export default accountSlice.reducer;
 
 // //pure functions only, no side effects.
