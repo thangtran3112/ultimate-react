@@ -13,30 +13,6 @@
       "id": 17806751
     },
     {
-      "cityName": "Helechosa de los Montes",
-      "country": "Spain",
-      "emoji": "🇪🇸",
-      "date": "2024-02-02T23:17:46.949Z",
-      "notes": "test",
-      "position": {
-        "lat": "39.35205509735803",
-        "lng": "-4.899900182561273"
-      },
-      "id": 98443198
-    },
-    {
-      "cityName": "Bay of Gibraltar",
-      "country": "Spain",
-      "emoji": "🇪🇸",
-      "date": "2024-02-02T23:22:21.721Z",
-      "notes": "test",
-      "position": {
-        "lat": "36.105151426164305",
-        "lng": "-5.4051677502952336"
-      },
-      "id": 98443199
-    },
-    {
       "cityName": "Bay of Gibraltar",
       "country": "Spain",
       "emoji": "🇪🇸",
@@ -47,18 +23,6 @@
         "lng": "-5.4051677502952336"
       },
       "id": 98443200
-    },
-    {
-      "cityName": "Ait Ourir",
-      "country": "Morocco",
-      "emoji": "🇲🇦",
-      "date": "2024-02-02T23:25:30.226Z",
-      "notes": "test",
-      "position": {
-        "lat": "31.448987175735155",
-        "lng": "-7.866137224668462"
-      },
-      "id": 98443201
     },
     {
       "cityName": "Ordino",
