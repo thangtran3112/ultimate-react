@@ -25,40 +25,28 @@
       "id": 98443200
     },
     {
-      "cityName": "Ordino",
-      "country": "Andorra",
-      "emoji": "🇦🇩",
-      "date": "2024-02-02T23:27:40.580Z",
-      "notes": "test",
-      "position": {
-        "lat": "42.56958238143497",
-        "lng": "1.560006345877012"
-      },
-      "id": 98443205
-    },
-    {
-      "cityName": "Alcublas",
+      "cityName": "Merida",
       "country": "Spain",
       "emoji": "🇪🇸",
-      "date": "2024-02-02T23:28:27.895Z",
-      "notes": "async",
-      "position": {
-        "lat": "39.792890408431994",
-        "lng": "-0.7030475605203913"
-      },
-      "id": 98443206
-    },
-    {
-      "cityName": "London",
-      "country": "United Kingdom of Great Britain and Northern Ireland (the)",
-      "emoji": "🇬🇧",
-      "date": "2024-02-02T23:30:36.261Z",
+      "date": "2024-02-04T07:11:37.648Z",
       "notes": "test",
       "position": {
-        "lat": "51.51383161916103",
-        "lng": "-0.07686918256701869"
+        "lat": "38.927442754599255",
+        "lng": "-6.27874703505248"
       },
-      "id": 98443207
+      "id": 98443208
+    },
+    {
+      "cityName": "Teruel",
+      "country": "Spain",
+      "emoji": "🇪🇸",
+      "date": "2024-02-04T18:12:46.148Z",
+      "notes": "test",
+      "position": {
+        "lat": "40.359464344082205",
+        "lng": "-0.9985202578525422"
+      },
+      "id": 98443209
     }
   ]
 }
