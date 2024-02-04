@@ -37,6 +37,14 @@ function Calculator({ workouts, allowSound }) {
     playSound();
   }, [duration, allowSound]);
 
+  /** Apart from dependency list, useEffect will only have intial snapshots of
+   * old values.
+   */
+  useEffect(() => {
+    console.log(duration, sets);
+    document.title = `Your ${number}-exercises workout`;
+  }, [number, duration, sets]);
+
   //const duration = (number * sets * speed) / 60 + (sets - 1) * durationBreak;
   const mins = Math.floor(duration);
   const seconds = (duration - mins) * 60;
