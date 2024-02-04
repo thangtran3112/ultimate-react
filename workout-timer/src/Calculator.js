@@ -1,4 +1,4 @@
-import { useState, memo, useEffect } from "react";
+import { useState, memo, useEffect, useCallback } from "react";
 import clickSound from "./ClickSound.m4a";
 
 function Calculator({ workouts, allowSound }) {
@@ -8,28 +8,47 @@ function Calculator({ workouts, allowSound }) {
   const [durationBreak, setDurationBreak] = useState(5);
   const [duration, setDuration] = useState(0);
 
+  /* Without useCallback, this helper function will be re-rendered every time 
+  component load. And when we use handleInc or handleDec, the duration 
+  will be reverted when useEffect is called again */
+  // const playSound = useCallback(() => {
+  //   if (!allowSound) return;
+  //   const sound = new Audio(clickSound);
+  //   sound.play();
+  // }, [allowSound]);
+
   useEffect(() => {
     setDuration(
       () => (number * sets * speed) / 60 + (sets - 1) * durationBreak
     );
+    // playSound();
   }, [number, sets, speed, durationBreak]);
+
+  /**We should have multiple effect, each effect for 1 small purpose
+   * We would only want the sound to be played, when duration is changed
+   */
+  useEffect(() => {
+    const playSound = () => {
+      if (!allowSound) return;
+      const sound = new Audio(clickSound);
+      sound.play();
+    };
+
+    playSound();
+  }, [duration, allowSound]);
 
   //const duration = (number * sets * speed) / 60 + (sets - 1) * durationBreak;
   const mins = Math.floor(duration);
   const seconds = (duration - mins) * 60;
 
-  const playSound = function () {
-    if (!allowSound) return;
-    const sound = new Audio(clickSound);
-    sound.play();
-  };
-
   function handleInc() {
     setDuration((duration) => Math.floor(duration) + 1);
+    // playSound();
   }
 
   function handleDec() {
     setDuration((duration) => (duration > 1 ? Math.ceil(duration) - 1 : 0));
+    // playSound();
   }
 
   return (
