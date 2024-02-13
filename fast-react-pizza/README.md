@@ -21,3 +21,7 @@ plugins: ['prettier-plugin-tailwindcss'],
 # Prettier config can be in js, json, yaml or cjs form:
 
 https://prettier.io/docs/en/configuration.html
+
+# Spacing between children
+
+https://tailwindcss.com/docs/space#add-horizontal-space-between-children
