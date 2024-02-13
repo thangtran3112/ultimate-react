@@ -25,3 +25,7 @@ https://prettier.io/docs/en/configuration.html
 # Spacing between children
 
 https://tailwindcss.com/docs/space#add-horizontal-space-between-children
+
+# Flex
+
+https://tailwindcss.com/docs/flex
