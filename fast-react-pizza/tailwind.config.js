@@ -2,7 +2,19 @@
 export default {
   content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
   theme: {
-    extend: {},
+    //overwrite the entire existing fons (sans) into 'Roboto Mono'
+    fontFamily: {
+      sans: 'Roboto Mono, monospace',
+    },
+    extend: {
+      // fontSize: {
+      //   huge: ['80rem', { lineHeight: '1' }],
+      // },
+      //modify only height.screen
+      height: {
+        screen: '100dvh',
+      },
+    },
     // screens: {
     //   'tablet': '640px',
     //   // => @media (min-width: 640px) { ... }
