@@ -29,3 +29,7 @@ https://tailwindcss.com/docs/space#add-horizontal-space-between-children
 # Flex
 
 https://tailwindcss.com/docs/flex
+
+# Default Tailwind configurations, that we can overwrite
+
+https://github.com/tailwindlabs/tailwindcss/blob/master/stubs/config.full.js
