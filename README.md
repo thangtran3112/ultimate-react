@@ -1,7 +1,7 @@
 ## Pizza Store project
 
 - ReactJS 18+
-- Redux toolkit, useSelector, useDispatch, extraReducers, addCase, addMatcher
+- Redux toolkit, `useSelector`, `useDispatch`, `extraReducers`, `addCase`, `addMatcher`
 - Accessing store outside of component scope with store.dispatch()
 - Handling fullfilled, pending, rejected async calls with Redux Thunk middleware.
 - Modern React Router with Data Loading (v6.6), Router Form, Action, Loader, useNavigation()
