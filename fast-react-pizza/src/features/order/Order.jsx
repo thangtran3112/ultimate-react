@@ -9,6 +9,7 @@ import {
 } from '../../utils/helpers';
 import OrderItem from '../order/OrderItem';
 import { useEffect } from 'react';
+import UpdateOrder from './UpdateOrder';
 
 function Order() {
   const order = useLoaderData();
@@ -20,7 +21,7 @@ function Order() {
     if (!fetcher.data && fetcher.state === 'idle') fetcher.load('/menu'); //fetch loading data for 'menu' route
   }, [fetcher]);
 
-  console.log(fetcher.data);
+  // console.log(fetcher.data);
 
   // Everyone can search for all orders, so for privacy reasons we're gonna gonna exclude names or address, these are only for the restaurant staff
   const {
@@ -89,6 +90,7 @@ function Order() {
           To pay on delivery: {formatCurrency(orderPrice + priorityPrice)}
         </p>
       </div>
+      {!priority && <UpdateOrder order={order} />}
     </div>
   );
 }
