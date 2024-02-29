@@ -10,6 +10,7 @@ import CreateOrder, {
 import Order, { loader as orderLoader } from './features/order/Order';
 import AppLayout from './ui/AppLayout';
 import Error from './ui/Error';
+import { action as updateOrderAction } from './features/order/UpdateOrder';
 
 //https://reactrouter.com/en/6.22.0/routers/create-browser-router
 /**
@@ -37,7 +38,13 @@ const router = createBrowserRouter([
         element: <CreateOrder />,
         action: createOrderAction,
       },
-      { path: '/order/:orderId', element: <Order />, loader: orderLoader },
+      {
+        path: '/order/:orderId',
+        element: <Order />,
+        loader: orderLoader,
+        errorElement: <Error />,
+        action: updateOrderAction,
+      },
     ],
   },
 ]);
