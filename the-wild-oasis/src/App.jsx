@@ -2,13 +2,7 @@ import styled from "styled-components";
 import GlobalStyle from "./styles/GlobalStyles";
 import Button from "./ui/Button";
 import Input from "./ui/Input";
-
-//This component will extends all props from <h1> component
-const H1 = styled.h1`
-  font-size: 30px;
-  font-weight: 600;
-  background-color: yellow;
-`;
+import Heading from "./ui/Heading";
 
 const StyledApp = styled.div`
   background-color: orangered;
@@ -21,9 +15,12 @@ function App() {
       {/* Global styled component cannot have any children. Similar to Material UI CSSBaseline */}
       <GlobalStyle />
       <StyledApp>
-        <H1>The Wild Oasis</H1>
+        <Heading as="h1">The Wild Oasis</Heading>
+        <Heading as="h2">Check in and out</Heading>
         <Button>Check In</Button>
         <Button>Check Out</Button>
+        <Heading as="h3">Form</Heading>
+
         <Input type="number" placeholder="Number of guests" />
       </StyledApp>
     </>
