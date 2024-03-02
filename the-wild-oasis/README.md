@@ -8,5 +8,7 @@
 
 # Vite Env needs to be started with VITE
 
+`import.meta.env.VITE_SUPABASE_KEY`
+
 https://github.com/vitejs/vite/discussions/15064
 https://vitejs.dev/guide/env-and-mode
