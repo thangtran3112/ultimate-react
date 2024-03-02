@@ -14,12 +14,6 @@ export default defineConfig({
 
 - `vscode-styled-components` for highlighting css syntax
 - [Path Intellisense](https://marketplace.visualstudio.com/items?itemName=christian-kohler.path-intellisense)
-- Add the following lines to .vscode/settings.json
-
-```
-  { "typescript.suggest.paths": false }
-  { "javascript.suggest.paths": false }
-```
 
 # Vite Env needs to be started with VITE
 
@@ -37,3 +31,7 @@ https://vitejs.dev/guide/env-and-mode
 
 - https://react-hot-toast.com/
 - `npm install react-hot-toast`
+
+# Installing React Hook Form
+
+- `npm i react-hook-form@7`
