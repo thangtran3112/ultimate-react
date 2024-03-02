@@ -1,11 +1,15 @@
 import styled from "styled-components";
 import { useForm } from "react-hook-form";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { toast } from "react-hot-toast";
 
 import Input from "../../ui/Input";
 import Form from "../../ui/Form";
 import Button from "../../ui/Button";
 import FileInput from "../../ui/FileInput";
 import Textarea from "../../ui/Textarea";
+import { createCabin } from "../../services/apiCabins";
+import { CABIN_CACHE_KEY } from "./CabinTable";
 
 const FormRow = styled.div`
   display: grid;
@@ -44,12 +48,29 @@ const Error = styled.span`
 `;
 
 function CreateCabinForm() {
-  const { register, handleSubmit } = useForm();
+  const queryClient = useQueryClient();
+  const { register, handleSubmit, reset } = useForm();
 
-  //handleSubmit will call onSubmit
+  const { mutate, isLoading: isCreating } = useMutation({
+    mutationFn: createCabin, //or (newCabin) => createCabin(newCabin)
+    onSuccess: () => {
+      toast.success("New cabin successfully created!");
+      queryClient.invalidateQueries({
+        queryKey: [CABIN_CACHE_KEY],
+      });
+      reset();
+    },
+    onError: (err) => toast.error(err.message),
+  });
+
+  /*
+   * handleSubmit will call onSubmit(), where registered form data will be passing into onSubmit()
+   * Also, please note that, any clicking (Add Cabin button, Enter key) will also trigger Form submission
+   */
   function onSubmit(data) {
     //all form data is now available without the need of adding useState for all Input fields
-    console.log(data);
+    //console.log(data);
+    mutate(data);
   }
 
   return (
@@ -99,7 +120,7 @@ function CreateCabinForm() {
         <Button variation="secondary" type="reset">
           Cancel
         </Button>
-        <Button>Add cabin</Button>
+        <Button disabled={isCreating}>Add cabin</Button>
       </FormRow>
     </Form>
   );
