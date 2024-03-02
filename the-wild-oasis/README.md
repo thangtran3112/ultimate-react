@@ -5,3 +5,8 @@
 # VsCode extensions
 
 `vscode-styled-components`
+
+# Vite Env needs to be started with VITE
+
+https://github.com/vitejs/vite/discussions/15064
+https://vitejs.dev/guide/env-and-mode
