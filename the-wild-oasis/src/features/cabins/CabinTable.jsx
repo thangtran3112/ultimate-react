@@ -29,13 +29,15 @@ const TableHeader = styled.header`
   padding: 1.6rem 2.4rem;
 `;
 
+export const CABIN_CACHE_KEY = "cabins";
+
 const CabinTable = () => {
   const {
     isLoading,
     data: cabins,
     error,
   } = useQuery({
-    queryKey: ["cabin"], //identify cache key
+    queryKey: [CABIN_CACHE_KEY], //identify cache key
     queryFn: getCabins,
   });
   if (isLoading) return <Spinner />;
