@@ -12,3 +12,8 @@
 
 https://github.com/vitejs/vite/discussions/15064
 https://vitejs.dev/guide/env-and-mode
+
+# Installing react query and react-query-devtools
+
+`npm i --save tanstack/react-query@5`
+`npm i --save tanstack/react-query-devtools@5`
