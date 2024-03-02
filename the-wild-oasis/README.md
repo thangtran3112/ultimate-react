@@ -34,4 +34,6 @@ https://vitejs.dev/guide/env-and-mode
 
 # Installing React Hook Form
 
+- React Hook Form help converting form states into data without setting states for each input elements
+- It also helps validation of input easier.
 - `npm i react-hook-form@7`
