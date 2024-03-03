@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { getCabins } from "../../services/apiCabins";
 import Spinner from "../../ui/Spinner";
 import CabinRow from "./CabinRow";
-import { CABIN_CACHE_KEY } from "../../constant";
+import { CABINS_CACHE_KEY } from "../../constant";
 
 const Table = styled.div`
   border: 1px solid var(--color-grey-200);
@@ -36,7 +36,7 @@ const CabinTable = () => {
     data: cabins,
     error,
   } = useQuery({
-    queryKey: [CABIN_CACHE_KEY], //identify cache key
+    queryKey: [CABINS_CACHE_KEY], //identify cache key
     queryFn: getCabins,
   });
   if (isLoading) return <Spinner />;
