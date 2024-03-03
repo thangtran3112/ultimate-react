@@ -18,3 +18,4 @@
 - Form management with React Hook Form
 - Other tools: React icons, React Hot Toast, Rechart (for Chart, Dashboard)
 - Backend with Supabase
+- Compound component pattern, placing component outside of React Component tree with [createPortal](https://react.dev/reference/react-dom/createPortal)
