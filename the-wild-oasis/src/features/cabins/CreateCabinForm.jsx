@@ -10,7 +10,7 @@ import FileInput from "../../ui/FileInput";
 import Textarea from "../../ui/Textarea";
 import FormRow from "../../ui/FormRow";
 import { createCabin } from "../../services/apiCabins";
-import { CABIN_CACHE_KEY } from "./CabinTable";
+import { CABIN_CACHE_KEY } from "../../constant";
 
 function CreateCabinForm() {
   const queryClient = useQueryClient();
@@ -36,7 +36,10 @@ function CreateCabinForm() {
   function onSubmit(data) {
     //all form data is now available without the need of adding useState for all Input fields
     //console.log(data);
-    mutate(data);
+
+    //pls notice from console.log, image from File Input is a list
+    //We need to rewrite image property into the form that Supabase wants
+    mutate({ ...data, image: data.image[0] });
   }
 
   function onError(errors) {
@@ -116,7 +119,14 @@ function CreateCabinForm() {
       </FormRow>
 
       <FormRow label="Cabin photo">
-        <FileInput id="image" accept="image/*" disabled={isCreating} />
+        <FileInput
+          id="image"
+          accept="image/*"
+          disabled={isCreating}
+          {...register("image", {
+            required: "This field is required",
+          })}
+        />
       </FormRow>
 
       <FormRow>

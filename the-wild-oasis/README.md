@@ -37,3 +37,8 @@ https://vitejs.dev/guide/env-and-mode
 - React Hook Form help converting form states into data without setting states for each input elements
 - It also helps validation of input easier.
 - `npm i react-hook-form@7`
+
+# Supabase docs:
+
+- [Insert and other queries](https://supabase.com/docs/reference/javascript/insert)
+- [Uploading a file to bucket](https://supabase.com/docs/reference/javascript/storage-from-upload)
