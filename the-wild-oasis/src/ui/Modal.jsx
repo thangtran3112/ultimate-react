@@ -1,4 +1,6 @@
+import { HiXMark } from "react-icons/hi2";
 import styled from "styled-components";
+import { createPortal } from "react-dom";
 
 const StyledModal = styled.div`
   position: fixed;
@@ -48,3 +50,23 @@ const Button = styled.button`
     color: var(--color-grey-500);
   }
 `;
+
+const Modal = ({ children, onClose }) => {
+  //element will be rendered directly into DOM tree under <body>
+  //the component is still present in the same place in React Component tree
+  //Note: this would help the Modal avoid any parent React component with 'overflow: hidden'
+  return createPortal(
+    <Overlay>
+      <StyledModal>
+        <Button onClick={onClose}>
+          <HiXMark />
+        </Button>
+        <div>{children}</div>
+      </StyledModal>
+    </Overlay>,
+    document.body
+    //document.querySelector...
+  );
+};
+
+export default Modal;
