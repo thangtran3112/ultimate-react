@@ -1,6 +1,4 @@
 import { useForm } from "react-hook-form";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { toast } from "react-hot-toast";
 
 import Input from "../../ui/Input";
 import Form from "../../ui/Form";
@@ -9,47 +7,22 @@ import FileInput from "../../ui/FileInput";
 import Textarea from "../../ui/Textarea";
 import FormRow from "../../ui/FormRow";
 
-import { createEditCabin } from "../../services/apiCabins";
-import { CABIN_CACHE_KEY } from "../../constant";
+import { useCreateCabin } from "./useCreateCabin";
+import { useEditCabin } from "./useEditCabin";
 
 //Set cabinToEdit default value as an empty object
 function CreateCabinForm({ cabinToEdit = {} }) {
   const { id: editId, ...editValues } = cabinToEdit;
-  const isEditSession = Boolean(editId);
+  const { createCabinMutation, isCreating } = useCreateCabin();
+  const { editCabinMutation, isEditing } = useEditCabin();
+  const isWorking = isCreating || isEditing;
 
-  const queryClient = useQueryClient();
+  const isEditSession = Boolean(editId);
   const { register, handleSubmit, reset, getValues, formState } = useForm({
     defaultValues: isEditSession ? editValues : {},
   });
   const { errors } = formState;
 
-  const { mutate: createCabinMutation, isLoading: isCreating } = useMutation({
-    mutationFn: createEditCabin, //or (newCabin) => createEditCabin(newCabin)
-    onSuccess: () => {
-      toast.success("New cabin successfully created!");
-      queryClient.invalidateQueries({
-        queryKey: [CABIN_CACHE_KEY],
-      });
-      reset();
-    },
-    onError: (err) => toast.error(err.message),
-  });
-
-  //mutationFn can only pass 1 object argument to createEditCabin function
-  //we have to spread it into { newCabinData, id} to comply with 1 argument requirement
-  const { mutate: editCabinMutation, isLoading: isEditing } = useMutation({
-    mutationFn: ({ newCabinData, id }) => createEditCabin(newCabinData, id),
-    onSuccess: () => {
-      toast.success("Cabin successfully edited!");
-      queryClient.invalidateQueries({
-        queryKey: [CABIN_CACHE_KEY],
-      });
-      reset();
-    },
-    onError: (err) => toast.error(err.message),
-  });
-
-  const isWorking = isCreating || isEditing;
   /*
    * handleSubmit will call onSubmit(), where registered form data will be passing into onSubmit()
    * Also, please note that, any clicking (Add Cabin button, Enter key) will also trigger Form submission
@@ -63,14 +36,30 @@ function CreateCabinForm({ cabinToEdit = {} }) {
     const image = typeof data.image === "string" ? data.image : data.image[0];
 
     if (isEditSession) {
-      editCabinMutation({
-        newCabinData: { ...data, image },
-        id: editId,
-      });
+      editCabinMutation(
+        {
+          newCabinData: { ...data, image },
+          id: editId,
+        },
+        {
+          onSuccess: (data) => {
+            //console.log(data);
+            reset();
+          },
+        }
+      );
     } else {
       //pls notice from console.log, image from File Input is a list
       //We need to rewrite image property into the form that Supabase wants
-      createCabinMutation({ ...data, image });
+      createCabinMutation(
+        { ...data, image },
+        {
+          onSuccess: (data) => {
+            //console.log(data);
+            reset();
+          },
+        }
+      );
     }
   }
 
