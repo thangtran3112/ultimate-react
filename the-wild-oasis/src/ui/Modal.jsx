@@ -1,7 +1,15 @@
 import { HiXMark } from "react-icons/hi2";
 import styled from "styled-components";
 import { createPortal } from "react-dom";
-import { cloneElement, createContext, useContext, useState } from "react";
+import {
+  cloneElement,
+  createContext,
+  useContext,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
+import { useOutsideClick } from "../hooks/useOutsideClick";
 
 const StyledModal = styled.div`
   position: fixed;
@@ -75,6 +83,9 @@ const Open = ({ children, opens: opensWindowName }) => {
 
 const Window = ({ children, name }) => {
   const { openName, close } = useContext(ModalContext);
+
+  const modalRef = useOutsideClick(close);
+
   if (name !== openName) return null;
 
   //element will be rendered directly into DOM tree under <body>
@@ -82,7 +93,7 @@ const Window = ({ children, name }) => {
   //Note: this would help the Modal avoid any parent React component with 'overflow: hidden'
   return createPortal(
     <Overlay>
-      <StyledModal>
+      <StyledModal ref={modalRef}>
         <Button onClick={close}>
           <HiXMark />
         </Button>
