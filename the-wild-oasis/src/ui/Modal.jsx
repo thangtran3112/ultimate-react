@@ -1,14 +1,7 @@
 import { HiXMark } from "react-icons/hi2";
 import styled from "styled-components";
 import { createPortal } from "react-dom";
-import {
-  cloneElement,
-  createContext,
-  useContext,
-  useEffect,
-  useRef,
-  useState,
-} from "react";
+import { cloneElement, createContext, useContext, useState } from "react";
 import { useOutsideClick } from "../hooks/useOutsideClick";
 
 const StyledModal = styled.div`
@@ -76,11 +69,19 @@ const Modal = ({ children }) => {
   );
 };
 
+/**
+ * Child Element will be cloned and attached an onClick attribute, for opening the <Modal.Window>
+ */
 const Open = ({ children, opens: opensWindowName }) => {
   const { open } = useContext(ModalContext);
   return cloneElement(children, { onClick: () => open(opensWindowName) });
 };
 
+/**
+ * {children} component will be rendered when <Modal.Open> is clicked
+ * {children} component will be attached with a "X" icon to close the whole Modal
+ * Note: {children} component will received "onCloseModal" prop, so it can handle closing the Modal
+ */
 const Window = ({ children, name }) => {
   const { openName, close } = useContext(ModalContext);
 
