@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { createEditCabin } from "../../services/apiCabins";
 import toast from "react-hot-toast";
-import { CABIN_CACHE_KEY } from "../../constant";
+import { CABINS_CACHE_KEY } from "../../constant";
 
 export const useEditCabin = () => {
   const queryClient = useQueryClient();
@@ -13,7 +13,7 @@ export const useEditCabin = () => {
     onSuccess: () => {
       toast.success("Cabin successfully edited!");
       queryClient.invalidateQueries({
-        queryKey: [CABIN_CACHE_KEY],
+        queryKey: [CABINS_CACHE_KEY],
       });
       //reset();
     },

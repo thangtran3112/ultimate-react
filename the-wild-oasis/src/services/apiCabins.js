@@ -1,9 +1,9 @@
 import supabase, { supabaseUrl } from "./supabase";
-import { CABIN_BUCKET_NAME, CABIN_TABLE } from "../constant";
+import { CABIN_BUCKET_NAME, CABINS_TABLE } from "../constant";
 
 //check this from APIDoc for cabins
 export async function getCabins() {
-  const { data, error } = await supabase.from(CABIN_TABLE).select("*");
+  const { data, error } = await supabase.from(CABINS_TABLE).select("*");
 
   if (error) {
     console.error(error);
@@ -43,7 +43,7 @@ export const createEditCabin = async (newCabin, id) => {
       `${supabaseUrl}/storage/v1/object/public/cabin-images/${uploadingImageName}`;
 
   //1. Create/Edit Cabin
-  let query = supabase.from(CABIN_TABLE);
+  let query = supabase.from(CABINS_TABLE);
 
   //A. CREATE
   if (!id) {
@@ -71,7 +71,7 @@ export const createEditCabin = async (newCabin, id) => {
 
   //3. Delete the cabin if there was an error uploading the corresponding image
   if (storageError) {
-    await supabase.from(CABIN_TABLE).delete().eq("id", data.id);
+    await supabase.from(CABINS_TABLE).delete().eq("id", data.id);
     if (storageError) {
       console.error(storageError);
       throw new Error(
@@ -85,7 +85,7 @@ export const createEditCabin = async (newCabin, id) => {
 //check this from APIDoc for cabins
 export const deleteCabin = async (id) => {
   const { data, error } = await supabase
-    .from(CABIN_TABLE)
+    .from(CABINS_TABLE)
     .delete()
     .eq("id", id);
 
