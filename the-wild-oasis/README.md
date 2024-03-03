@@ -42,3 +42,8 @@ https://vitejs.dev/guide/env-and-mode
 
 - [Insert and other queries](https://supabase.com/docs/reference/javascript/insert)
 - [Uploading a file to bucket](https://supabase.com/docs/reference/javascript/storage-from-upload)
+
+# - Compound component pattern, placing component outside of React Component tree
+
+- [createPortal](https://react.dev/reference/react-dom/createPortal)
+- [cloneElement](https://react.dev/reference/react/cloneElement)

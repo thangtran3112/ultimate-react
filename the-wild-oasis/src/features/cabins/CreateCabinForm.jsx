@@ -9,6 +9,7 @@ import FormRow from "../../ui/FormRow";
 
 import { useCreateCabin } from "./useCreateCabin";
 import { useEditCabin } from "./useEditCabin";
+import { MODAL_TYPE, REGULAR_TYPE } from "../../constant";
 
 //Set cabinToEdit default value as an empty object
 function CreateCabinForm({ cabinToEdit = {}, onCloseModal }) {
@@ -72,7 +73,7 @@ function CreateCabinForm({ cabinToEdit = {}, onCloseModal }) {
   return (
     <Form
       onSubmit={handleSubmit(onSubmit, onError)}
-      type={onCloseModal ? "modal" : "regular"}
+      type={onCloseModal ? MODAL_TYPE : REGULAR_TYPE}
     >
       <FormRow label="Cabin name" error={errors?.name?.message}>
         <Input
