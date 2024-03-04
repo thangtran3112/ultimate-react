@@ -94,18 +94,26 @@ const CabinRow = ({ cabin }) => {
             <Menus.Toggle id={cabinId} />
 
             <Menus.List id={cabinId}>
-              <Menus.Button icon={<HiSquare2Stack />} onClick={handleDuplicate}>
+              <Menus.Button
+                icon={<HiSquare2Stack />}
+                onClick={handleDuplicate}
+                disabled={isWorking}
+              >
                 Duplicate
               </Menus.Button>
 
               {/* triggering open CreateCabinForm */}
               <Modal.Open opens={MODAL_EDIT_CABIN}>
-                <Menus.Button icon={<HiPencil />}>Edit</Menus.Button>
+                <Menus.Button icon={<HiPencil />} disabled={isWorking}>
+                  Edit
+                </Menus.Button>
               </Modal.Open>
 
               {/* triggering Delete Confirmation popup */}
               <Modal.Open opens={MODAL_DELETE_CABIN}>
-                <Menus.Button icon={<HiTrash />}>Delete</Menus.Button>
+                <Menus.Button icon={<HiTrash />} disabled={isWorking}>
+                  Delete
+                </Menus.Button>
               </Modal.Open>
             </Menus.List>
 
