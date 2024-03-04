@@ -47,3 +47,8 @@ https://vitejs.dev/guide/env-and-mode
 
 - [createPortal](https://react.dev/reference/react-dom/createPortal)
 - [cloneElement](https://react.dev/reference/react/cloneElement)
+
+# Handle Clicking outside of component
+
+- See useClickOutside() hook implementation
+- Handle click outside relies on useRef() and [Event Capturing Phase](https://www.freecodecamp.org/news/event-propagation-event-bubbling-event-catching-beginners-guide/)
