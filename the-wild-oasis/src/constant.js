@@ -12,3 +12,18 @@ export const MODAL_DELETE_CABIN = "delete";
 export const MODAL_TABLE = "table";
 export const MODAL_TYPE = "modal";
 export const REGULAR_TYPE = "regular";
+
+//URL path constants
+export const DISCOUNT_PARAM = "discount";
+export const FILTER_ALL = {
+  value: "all",
+  label: "All",
+};
+export const FILTER_NO_DISCOUNT = {
+  value: "no-discount",
+  label: "No Discount",
+};
+export const FILTER_WITH_DISCOUNT = {
+  value: "with-discount",
+  label: "With Discount",
+};
