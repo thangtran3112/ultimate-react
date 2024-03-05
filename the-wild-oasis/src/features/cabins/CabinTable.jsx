@@ -3,10 +3,28 @@ import Spinner from "../../ui/Spinner";
 import CabinRow from "./CabinRow";
 import Table from "../../ui/Table";
 import Menus from "../../ui/Menus";
+import { useSearchParams } from "react-router-dom";
+import {
+  DISCOUNT_PARAM,
+  FILTER_ALL,
+  FILTER_NO_DISCOUNT,
+  FILTER_WITH_DISCOUNT,
+} from "../../constant";
 
 const CabinTable = () => {
   const { isLoading, cabins } = useCabins();
+  const [searchParams] = useSearchParams();
   if (isLoading) return <Spinner />;
+
+  const filterValue = searchParams.get(DISCOUNT_PARAM) || "all";
+  console.log(filterValue);
+
+  let filteredCabins;
+  if (filterValue === FILTER_ALL.value) filteredCabins = cabins;
+  if (filterValue === FILTER_NO_DISCOUNT.value)
+    filteredCabins = cabins.filter((cabin) => cabin.discount === 0);
+  if (filterValue === FILTER_WITH_DISCOUNT.value)
+    filteredCabins = cabins.filter((cabin) => cabin.discount > 0);
 
   return (
     <Menus>
@@ -20,7 +38,7 @@ const CabinTable = () => {
           <div></div>
         </Table.Header>
         <Table.Body
-          data={cabins}
+          data={filteredCabins}
           render={(cabin) => <CabinRow cabin={cabin} key={cabin.id} />}
         />
       </Table>
