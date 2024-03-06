@@ -5,6 +5,9 @@ export const CABINS_TABLE = "cabins";
 export const SETTINGS_TABLE = "settings";
 export const SETTINGS_CACHE_KEY = "settings";
 
+export const BOOKINGS_TABLE = "bookings";
+export const BOOKINGS_CACHE_KEY = "bookings";
+
 //UI constants
 export const MODAL_CABIN_FORM = "cabin-form";
 export const MODAL_EDIT_CABIN = "edit";
