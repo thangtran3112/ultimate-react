@@ -17,7 +17,9 @@ export const MODAL_TYPE = "modal";
 export const REGULAR_TYPE = "regular";
 
 //URL path constants
+export const SORT_BY_PARAM = "sortBy";
 export const DISCOUNT_PARAM = "discount";
+export const STATUS_PARAM = "status";
 export const FILTER_ALL = {
   value: "all",
   label: "All",
@@ -30,7 +32,6 @@ export const FILTER_WITH_DISCOUNT = {
   value: "with-discount",
   label: "With Discount",
 };
-export const SORT_BY_PARAM = "sortBy";
 export const SORT_BY_START_DATE_ASC = "startDate-asc";
 export const SORT_ASC = "asc";
 export const SORT_DESC = "desc";
