@@ -1,4 +1,4 @@
-import { BOOKINGS_TABLE } from "../constant";
+import { BOOKINGS_TABLE, SORT_ASC } from "../constant";
 import { getToday } from "../utils/helpers";
 import supabase from "./supabase";
 
@@ -12,8 +12,15 @@ export async function getBookings({ filter, sortBy }) {
   //.eq("status", "unconfirmed")
   //.lte("totalPrice", 5000)
 
-  if (filter !== null) {
+  //FILTER
+  if (filter) {
     query = query[filter.method || "eq"](filter.field, filter.value);
+  }
+
+  //SORT
+  if (sortBy) {
+    const { field, direction } = sortBy;
+    query = query.order(field, { ascending: direction === SORT_ASC });
   }
   const { data, error } = await query;
 
