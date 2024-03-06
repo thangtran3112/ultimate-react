@@ -13,11 +13,14 @@ import {
   SORT_BY_PARAM,
   SORT_BY_START_DATE_ASC,
 } from "../../constant";
+import Empty from "../../ui/Empty";
 
 const CabinTable = () => {
   const { isLoading, cabins } = useCabins();
   const [searchParams] = useSearchParams();
   if (isLoading) return <Spinner />;
+
+  if (!cabins.length) return <Empty resourceName="cabins" />;
 
   //1) FILTER
   const filterValue = searchParams.get(DISCOUNT_PARAM) || "all";
@@ -29,6 +32,8 @@ const CabinTable = () => {
     filteredCabins = cabins.filter((cabin) => cabin.discount === 0);
   if (filterValue === FILTER_WITH_DISCOUNT.value)
     filteredCabins = cabins.filter((cabin) => cabin.discount > 0);
+
+  if (!filteredCabins.length) return <Empty resourceName="cabins" />;
 
   // 2) SORT
   const sortBy = searchParams.get(SORT_BY_PARAM) || SORT_BY_START_DATE_ASC;
