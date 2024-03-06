@@ -27,3 +27,31 @@ export const FILTER_WITH_DISCOUNT = {
   value: "with-discount",
   label: "With Discount",
 };
+export const SORT_BY_PARAM = "sortBy";
+export const SORT_BY_START_DATE_ASC = "startDate-asc";
+export const SORT_ASC = "asc";
+export const SORT_DESC = "desc";
+export const SORT_NAME_ASC = {
+  value: "name-asc",
+  label: "Sort by name (A-Z)",
+};
+export const SORT_NAME_DESC = {
+  value: "name-desc",
+  label: "Sort by name (Z-A)",
+};
+export const SORT_REGULAR_PRICE_ASC = {
+  value: "regularPrice-asc",
+  label: "Sort by price (low first)",
+};
+export const SORT_REGULAR_PRICE_DESC = {
+  value: "regularPrice-desc",
+  label: "Sort by price (high first)",
+};
+export const SORT_MAX_CAPACITY_ASC = {
+  value: "maxCapacity-asc",
+  label: "Sort by capacity (low first)",
+};
+export const SORT_MAX_CAPACITY_DESC = {
+  value: "maxCapacity-desc",
+  label: "Sort by capacity (high first)",
+};

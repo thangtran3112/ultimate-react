@@ -5,7 +5,14 @@ import {
   FILTER_ALL,
   FILTER_NO_DISCOUNT,
   FILTER_WITH_DISCOUNT,
+  SORT_MAX_CAPACITY_ASC,
+  SORT_MAX_CAPACITY_DESC,
+  SORT_NAME_ASC,
+  SORT_NAME_DESC,
+  SORT_REGULAR_PRICE_ASC,
+  SORT_REGULAR_PRICE_DESC,
 } from "../../constant";
+import SortBy from "../../ui/SortBy";
 
 const CabinTableOperations = () => {
   return (
@@ -13,6 +20,16 @@ const CabinTableOperations = () => {
       <Filter
         filterField={DISCOUNT_PARAM}
         options={[FILTER_ALL, FILTER_NO_DISCOUNT, FILTER_WITH_DISCOUNT]}
+      />
+      <SortBy
+        options={[
+          SORT_NAME_ASC,
+          SORT_NAME_DESC,
+          SORT_REGULAR_PRICE_ASC,
+          SORT_REGULAR_PRICE_DESC,
+          SORT_MAX_CAPACITY_ASC,
+          SORT_MAX_CAPACITY_DESC,
+        ]}
       />
     </TableOperations>
   );
