@@ -9,6 +9,9 @@ import {
   FILTER_ALL,
   FILTER_NO_DISCOUNT,
   FILTER_WITH_DISCOUNT,
+  SORT_ASC,
+  SORT_BY_PARAM,
+  SORT_BY_START_DATE_ASC,
 } from "../../constant";
 
 const CabinTable = () => {
@@ -16,8 +19,9 @@ const CabinTable = () => {
   const [searchParams] = useSearchParams();
   if (isLoading) return <Spinner />;
 
+  //1) FILTER
   const filterValue = searchParams.get(DISCOUNT_PARAM) || "all";
-  console.log(filterValue);
+  // console.log(filterValue);
 
   let filteredCabins;
   if (filterValue === FILTER_ALL.value) filteredCabins = cabins;
@@ -26,6 +30,14 @@ const CabinTable = () => {
   if (filterValue === FILTER_WITH_DISCOUNT.value)
     filteredCabins = cabins.filter((cabin) => cabin.discount > 0);
 
+  // 2) SORT
+  const sortBy = searchParams.get(SORT_BY_PARAM) || SORT_BY_START_DATE_ASC;
+  const [field, direction] = sortBy.split("-");
+  console.log(field + " " + direction);
+  const modifier = direction === SORT_ASC ? 1 : -1;
+  const sortedCabins = filteredCabins.sort(
+    (cabinA, cabinB) => modifier * (cabinA[field] - cabinB[field])
+  );
   return (
     <Menus>
       <Table columns="0.6fr 1.8fr 2.2fr 1fr 1fr 1fr">
@@ -38,7 +50,7 @@ const CabinTable = () => {
           <div></div>
         </Table.Header>
         <Table.Body
-          data={filteredCabins}
+          data={sortedCabins}
           render={(cabin) => <CabinRow cabin={cabin} key={cabin.id} />}
         />
       </Table>
