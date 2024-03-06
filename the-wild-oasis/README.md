@@ -1,15 +1,3 @@
-# Eslint Setup
-
-`npm install --save-dev vite-plugin-eslint eslint-config-react-app eslint`
-
-Adding `eslint()` plugin to vite.config.js
-
-```
-export default defineConfig({
-  plugins: [react(), eslint()],
-});
-```
-
 # VsCode extensions recommendation
 
 - `vscode-styled-components` for highlighting css syntax
@@ -24,8 +12,10 @@ https://vitejs.dev/guide/env-and-mode
 
 # Installing react query and react-query-devtools
 
-`npm i --save tanstack/react-query@5`
-`npm i --save tanstack/react-query-devtools@5`
+- `npm i --save tanstack/react-query@5`
+- `npm i --save tanstack/react-query-devtools@5`
+- Object and Array as query Key will work because Query Keys are hashed. [See more](https://tanstack.com/query/latest/docs/framework/react/guides/query-keys)
+- For Array query key, the order of the array matters. But order of Object properties are not matter.
 
 # Installing Toast (Notification)
 

@@ -58,3 +58,34 @@ export const SORT_MAX_CAPACITY_DESC = {
   value: "maxCapacity-desc",
   label: "Sort by capacity (high first)",
 };
+
+//Booking Filter and Sorting
+export const BookingFilterAll = { value: "all", label: "All" };
+export const BookingFilterCheckOut = {
+  value: "checked-out",
+  label: "Checked out",
+};
+export const BookingFilterCheckIn = {
+  value: "checked-in",
+  label: "Checked in",
+};
+export const BookingFilterUnconfirmed = {
+  value: "unconfirmed",
+  label: "Unconfirmed",
+};
+export const BookingSortStartDateDesc = {
+  value: "startDate-desc",
+  label: "Sort by date (recent first)",
+};
+export const BookingSortStartDateAsc = {
+  value: "startDate-asc",
+  label: "Sort by date (earlier first)",
+};
+export const BookingSortTotalPriceDesc = {
+  value: "totalPrice-desc",
+  label: "Sort by amount (high first)",
+};
+export const BookingSortTotalPriceAsc = {
+  value: "totalPrice-asc",
+  label: "Sort by amount (low first)",
+};
