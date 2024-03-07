@@ -8,6 +8,8 @@ export const SETTINGS_CACHE_KEY = "settings";
 export const BOOKINGS_TABLE = "bookings";
 export const BOOKINGS_CACHE_KEY = "bookings";
 
+export const BOOKING_CACHE = "booking";
+
 //UI constants
 export const MODAL_CABIN_FORM = "cabin-form";
 export const MODAL_EDIT_CABIN = "edit";
@@ -94,3 +96,6 @@ export const BookingSortTotalPriceAsc = {
 //PAGINATION
 export const PAGE_PARAM = "page";
 export const PAGE_SIZE = 3;
+
+//URL PATH
+export const BOOKINGS_PATH = "bookings";

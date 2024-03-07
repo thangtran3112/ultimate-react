@@ -10,13 +10,14 @@ import {
   BookingSortStartDateDesc,
   BookingSortTotalPriceAsc,
   BookingSortTotalPriceDesc,
+  STATUS_PARAM,
 } from "../../constant";
 
 function BookingTableOperations() {
   return (
     <TableOperations>
       <Filter
-        filterField="status"
+        filterField={STATUS_PARAM}
         options={[
           BookingFilterAll,
           BookingFilterCheckOut,
