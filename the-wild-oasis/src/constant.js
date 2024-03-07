@@ -90,3 +90,7 @@ export const BookingSortTotalPriceAsc = {
   value: "totalPrice-asc",
   label: "Sort by amount (low first)",
 };
+
+//PAGINATION
+export const PAGE_PARAM = "page";
+export const PAGE_SIZE = 10;
