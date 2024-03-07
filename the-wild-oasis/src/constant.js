@@ -93,4 +93,4 @@ export const BookingSortTotalPriceAsc = {
 
 //PAGINATION
 export const PAGE_PARAM = "page";
-export const PAGE_SIZE = 10;
+export const PAGE_SIZE = 3;

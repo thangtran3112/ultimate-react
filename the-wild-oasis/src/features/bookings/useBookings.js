@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import {
   BOOKINGS_CACHE_KEY,
   BookingSortStartDateDesc,
+  PAGE_PARAM,
   SORT_BY_PARAM,
   STATUS_PARAM,
 } from "../../constant";
@@ -24,14 +25,19 @@ export const useBookings = () => {
   const [field, direction] = sortByRaw.split("-");
   const sortBy = { field, direction };
 
+  //PAGINATION
+  const page = !searchParams.get(PAGE_PARAM)
+    ? 1
+    : Number(searchParams.get(PAGE_PARAM));
+
   const {
     isLoading,
-    data: bookings,
+    data: { data: bookings, count } = {}, //data is undefined from the beginning
     error,
   } = useQuery({
-    queryKey: [BOOKINGS_CACHE_KEY, filter, sortBy], //dependency array
-    queryFn: () => getBookings({ filter, sortBy }),
+    queryKey: [BOOKINGS_CACHE_KEY, filter, sortBy, page], //dependency array
+    queryFn: () => getBookings({ filter, sortBy, page }),
   });
 
-  return { isLoading, bookings, error };
+  return { isLoading, bookings, error, count };
 };
