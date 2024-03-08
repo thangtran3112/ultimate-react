@@ -14,7 +14,9 @@ import Login from "./pages/Login";
 import PageNotFound from "./pages/PageNotFound";
 import AppLayout from "./ui/AppLayout";
 import Booking from "./pages/Booking";
-import { BOOKINGS_PATH } from "./constant";
+import Checkin from "./pages/Checkin";
+
+import { BOOKINGS_PATH, CHECKIN_PATH } from "./constant";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -38,6 +40,7 @@ function App() {
             <Route path="dashboard" element={<Dashboard />} />
             <Route path="bookings" element={<Bookings />} />
             <Route path={`${BOOKINGS_PATH}/:bookingId`} element={<Booking />} />
+            <Route path={`${CHECKIN_PATH}/:bookingId`} element={<Checkin />} />
             <Route path="cabins" element={<Cabins />} />
             <Route path="users" element={<Users />} />
             <Route path="settings" element={<Settings />} />

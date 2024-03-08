@@ -95,7 +95,8 @@ export const BookingSortTotalPriceAsc = {
 
 //PAGINATION
 export const PAGE_PARAM = "page";
-export const PAGE_SIZE = 3;
+export const PAGE_SIZE = 10;
 
 //URL PATH
 export const BOOKINGS_PATH = "bookings";
+export const CHECKIN_PATH = "checkin";
