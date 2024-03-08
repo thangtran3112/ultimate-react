@@ -16,9 +16,13 @@ import {
   BOOKING_CHECKIN,
   BOOKING_UNCONFIRMED,
   CHECKIN_PATH,
+  MODAL_DELETE_BOOKING,
 } from "../../constant";
 import { HiArrowUpOnSquare } from "react-icons/hi2";
 import { useCheckout } from "../check-in-out/useCheckout";
+import Modal from "../../ui/Modal";
+import ConfirmDelete from "../../ui/ConfirmDelete";
+import { useDeleteBooking } from "./useDeleteBooking";
 
 const HeadingGroup = styled.div`
   display: flex;
@@ -31,6 +35,7 @@ function BookingDetail() {
   const navigate = useNavigate();
   const moveBack = useMoveBack();
   const { checkout, isCheckingOut } = useCheckout();
+  const { deleteBooking, isDeleting } = useDeleteBooking();
 
   if (isLoading) return <Spinner />;
 
@@ -71,6 +76,28 @@ function BookingDetail() {
             Check out
           </Button>
         )}
+
+        <Modal>
+          <Modal.Open opens={MODAL_DELETE_BOOKING}>
+            <Button variation="danger" disabled={isDeleting}>
+              Delete Booking
+            </Button>
+          </Modal.Open>
+          <Modal.Window name={MODAL_DELETE_BOOKING}>
+            <ConfirmDelete
+              resourceName="booking"
+              disabled={isDeleting}
+              onConfirm={() => {
+                deleteBooking(bookingId, {
+                  //customizes each mutation with in-build mutationOptions
+                  //unlike when we delete from BookingRow, in this case, we want
+                  //to navigate back to the Bookings list from Booking Details
+                  onSettled: () => navigate(-1),
+                });
+              }}
+            />
+          </Modal.Window>
+        </Modal>
 
         <Button variation="secondary" onClick={moveBack}>
           Back

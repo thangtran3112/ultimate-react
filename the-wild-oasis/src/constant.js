@@ -14,6 +14,7 @@ export const BOOKING_CACHE = "booking";
 export const MODAL_CABIN_FORM = "cabin-form";
 export const MODAL_EDIT_CABIN = "edit";
 export const MODAL_DELETE_CABIN = "delete";
+export const MODAL_DELETE_BOOKING = "delete";
 export const MODAL_TABLE = "table";
 export const MODAL_TYPE = "modal";
 export const REGULAR_TYPE = "regular";
