@@ -1,19 +1,20 @@
 import styled from "styled-components";
 import { format, isToday } from "date-fns";
+import { useNavigate } from "react-router-dom";
+import { HiArrowDownOnSquare, HiArrowUpOnSquare, HiEye } from "react-icons/hi2";
 
 import Tag from "../../ui/Tag";
 import Table from "../../ui/Table";
-
 import { formatCurrency } from "../../utils/helpers";
 import { formatDistanceFromNow } from "../../utils/helpers";
 import Menus from "../../ui/Menus";
-import { HiArrowDownOnSquare, HiEye } from "react-icons/hi2";
-import { useNavigate } from "react-router-dom";
 import {
   BOOKINGS_PATH,
-  BookingFilterUnconfirmed,
+  BOOKING_CHECKIN,
+  BOOKING_UNCONFIRMED,
   CHECKIN_PATH,
 } from "../../constant";
+import { useCheckout } from "../check-in-out/useCheckout";
 
 const Cabin = styled.div`
   font-size: 1.6rem;
@@ -57,6 +58,7 @@ function BookingRow({
   },
 }) {
   const navigate = useNavigate();
+  const { checkout, isCheckingOut } = useCheckout();
 
   const statusToTagName = {
     unconfirmed: "blue",
@@ -99,12 +101,21 @@ function BookingRow({
           >
             See details
           </Menus.Button>
-          {status === BookingFilterUnconfirmed.value && (
+          {status === BOOKING_UNCONFIRMED.value && (
             <Menus.Button
               icon={<HiArrowDownOnSquare />}
               onClick={() => navigate(`/${CHECKIN_PATH}/${bookingId}`)}
             >
               Check in
+            </Menus.Button>
+          )}
+          {status === BOOKING_CHECKIN.value && (
+            <Menus.Button
+              icon={<HiArrowUpOnSquare />}
+              onClick={() => checkout(bookingId)}
+              disabled={isCheckingOut}
+            >
+              Check out
             </Menus.Button>
           )}
         </Menus.List>

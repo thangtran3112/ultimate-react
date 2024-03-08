@@ -1,5 +1,6 @@
 import styled, { css } from "styled-components";
 import { useSearchParams } from "react-router-dom";
+import { PAGE_PARAM } from "../constant";
 
 const StyledFilter = styled.div`
   border: 1px solid var(--color-grey-100);
@@ -41,6 +42,12 @@ const Filter = ({ filterField, options }) => {
 
   function handleClick(value) {
     searchParams.set(filterField, value);
+
+    //For instace: If we have 7 pages for Checkin, 2 pages for Checkout.
+    //Swiching from CheckIn to CheckOut filter may get out-of-bound
+    //When we switching filter (All <-> Checkin <-> Checkout), we must go back to page=1
+    if (searchParams.get(PAGE_PARAM)) searchParams.set(PAGE_PARAM, 1);
+
     //setting url like: http://localhost:5173/cabins?discount=with-discount
     setSearchParams(searchParams);
   }

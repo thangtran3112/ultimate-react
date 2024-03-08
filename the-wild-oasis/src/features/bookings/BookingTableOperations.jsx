@@ -2,14 +2,14 @@ import SortBy from "../../ui/SortBy";
 import Filter from "../../ui/Filter";
 import TableOperations from "../../ui/TableOperations";
 import {
-  BookingFilterAll,
-  BookingFilterCheckIn,
-  BookingFilterCheckOut,
-  BookingFilterUnconfirmed,
-  BookingSortStartDateAsc,
-  BookingSortStartDateDesc,
-  BookingSortTotalPriceAsc,
-  BookingSortTotalPriceDesc,
+  BOOKING_ALL,
+  BOOKING_CHECKIN,
+  BOOKING_CHECKOUT,
+  BOOKING_SORT_START_DATE_DESC,
+  BOOKING_SORT_START_DATE_ASC,
+  BOOKING_SORT_TOTAL_PRICE_ASC,
+  BOOKING_SORT_TOTAL_PRICE_DESC,
+  BOOKING_UNCONFIRMED,
   STATUS_PARAM,
 } from "../../constant";
 
@@ -19,19 +19,19 @@ function BookingTableOperations() {
       <Filter
         filterField={STATUS_PARAM}
         options={[
-          BookingFilterAll,
-          BookingFilterCheckOut,
-          BookingFilterCheckIn,
-          BookingFilterUnconfirmed,
+          BOOKING_ALL,
+          BOOKING_CHECKOUT,
+          BOOKING_CHECKIN,
+          BOOKING_UNCONFIRMED,
         ]}
       />
 
       <SortBy
         options={[
-          BookingSortStartDateDesc,
-          BookingSortStartDateAsc,
-          BookingSortTotalPriceDesc,
-          BookingSortTotalPriceAsc,
+          BOOKING_SORT_START_DATE_DESC,
+          BOOKING_SORT_START_DATE_ASC,
+          BOOKING_SORT_TOTAL_PRICE_DESC,
+          BOOKING_SORT_TOTAL_PRICE_ASC,
         ]}
       />
     </TableOperations>

@@ -1,7 +1,7 @@
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import {
   BOOKINGS_CACHE_KEY,
-  BookingSortStartDateDesc,
+  BOOKING_SORT_START_DATE_ASC,
   PAGE_PARAM,
   PAGE_SIZE,
   SORT_BY_PARAM,
@@ -23,7 +23,7 @@ export const useBookings = () => {
 
   //SORT
   const sortByRaw =
-    searchParams.get(SORT_BY_PARAM) || BookingSortStartDateDesc.value;
+    searchParams.get(SORT_BY_PARAM) || BOOKING_SORT_START_DATE_ASC.value;
   const [field, direction] = sortByRaw.split("-");
   const sortBy = { field, direction };
 
