@@ -7,9 +7,13 @@ import Table from "../../ui/Table";
 import { formatCurrency } from "../../utils/helpers";
 import { formatDistanceFromNow } from "../../utils/helpers";
 import Menus from "../../ui/Menus";
-import { HiEye } from "react-icons/hi2";
+import { HiArrowDownOnSquare, HiEye } from "react-icons/hi2";
 import { useNavigate } from "react-router-dom";
-import { BOOKINGS_PATH } from "../../constant";
+import {
+  BOOKINGS_PATH,
+  BookingFilterUnconfirmed,
+  CHECKIN_PATH,
+} from "../../constant";
 
 const Cabin = styled.div`
   font-size: 1.6rem;
@@ -95,6 +99,14 @@ function BookingRow({
           >
             See details
           </Menus.Button>
+          {status === BookingFilterUnconfirmed.value && (
+            <Menus.Button
+              icon={<HiArrowDownOnSquare />}
+              onClick={() => navigate(`/${CHECKIN_PATH}/${bookingId}`)}
+            >
+              Check in
+            </Menus.Button>
+          )}
         </Menus.List>
       </Menus.Menu>
     </Table.Row>
