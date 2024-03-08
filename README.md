@@ -19,3 +19,11 @@
 - Other tools: React icons, React Hot Toast, Rechart (for Chart, Dashboard)
 - Backend with Supabase
 - Compound component pattern, placing component outside of React Component tree with [createPortal](https://react.dev/reference/react-dom/createPortal)
+- @TODO: Synchronize booking with `Airbnb`, `Booking.com`, `VRBO` and `TripAdvisor`, through `Google Calendar`
+- Currently Airbnb does not provide public API, the only way to avoid conflicted bookings, is through Calendar Sync with Google
+- [Sync Airbnb with Google](https://www.airbnb.ca/help/article/99)
+- [Google Calendar API](https://developers.google.com/calendar/api/guides/overview)
+- @TODO: Add Online payment through Stripe or Paypal to handle credit card payment.
+- @TODO: Onsite payment with machine will not be integrated, agent can punch in Invoice number when marking Booking as 'Paid'
+- @TODO: Possible using this Website for manage Airbnb, VRBO, Booking.com and Trip Advisor in one place
+- @TODO: Add Chat component with GraphQL subscription to handle customer Chat
