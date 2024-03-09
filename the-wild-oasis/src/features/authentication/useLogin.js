@@ -17,7 +17,7 @@ export const useLogin = () => {
       //this would avoid a second network call within useUser() for getCurrentUser()
       //since we already populate the cache for query with ['user'] key
       queryClient.setQueriesData([USER_CACHE_KEY], user);
-      navigate("/dashboard");
+      navigate("/dashboard", { replace: true });
     },
     onError: (err) => {
       console.log("ERROR", err);
