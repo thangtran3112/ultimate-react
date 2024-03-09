@@ -17,6 +17,7 @@ import Booking from "./pages/Booking";
 import Checkin from "./pages/Checkin";
 
 import { BOOKINGS_PATH, CHECKIN_PATH } from "./constant";
+import ProtectedRoute from "./ui/ProtectedRoute";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -35,7 +36,13 @@ function App() {
       <BrowserRouter>
         <Routes>
           {/* Layout Route should not have any path. And it must contains <Outlet/> */}
-          <Route element={<AppLayout />}>
+          <Route
+            element={
+              <ProtectedRoute>
+                <AppLayout />
+              </ProtectedRoute>
+            }
+          >
             <Route index element={<Navigate replace to="dashboard" />} />
             <Route path="dashboard" element={<Dashboard />} />
             <Route path="bookings" element={<Bookings />} />

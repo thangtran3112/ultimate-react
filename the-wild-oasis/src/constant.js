@@ -10,6 +10,8 @@ export const BOOKINGS_CACHE_KEY = "bookings";
 
 export const BOOKING_CACHE = "booking";
 
+export const USER_CACHE_KEY = "user";
+
 //UI constants
 export const MODAL_CABIN_FORM = "cabin-form";
 export const MODAL_EDIT_CABIN = "edit";
