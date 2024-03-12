@@ -12,11 +12,11 @@ export const useLogin = () => {
   const navigate = useNavigate();
   const { mutate: login, isLoading } = useMutation({
     mutationFn: ({ email, password }) => loginApi({ email, password }),
-    onSuccess: (user) => {
+    onSuccess: (data) => {
       //caching the query into ['user'] key, so useUser() hook will automatically use the cache
       //this would avoid a second network call within useUser() for getCurrentUser()
       //since we already populate the cache for query with ['user'] key
-      queryClient.setQueriesData([USER_CACHE_KEY], user);
+      queryClient.setQueryData([USER_CACHE_KEY], data.user);
       navigate("/dashboard", { replace: true });
     },
     onError: (err) => {
