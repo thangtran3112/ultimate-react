@@ -23,6 +23,8 @@ function SignupForm() {
     signup(
       { fullName, email, password },
       {
+        //https://github.com/orgs/react-hook-form/discussions/6710
+        //reset should be call with defaulfValues
         onSettled: () => reset(),
       }
     );
