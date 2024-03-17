@@ -74,5 +74,5 @@ export async function updateCurrentUser({ password, fullName, avatar }) {
     });
 
   if (avatarError) throw new Error(avatarError.message);
-  return data;
+  return updatedUser;
 }
