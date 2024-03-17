@@ -9,8 +9,8 @@ export const BOOKINGS_TABLE = "bookings";
 export const BOOKINGS_CACHE_KEY = "bookings";
 
 export const BOOKING_CACHE = "booking";
-
 export const USER_CACHE_KEY = "user";
+export const AVATARS_BUCKET = "avatars";
 
 //UI constants
 export const MODAL_CABIN_FORM = "cabin-form";
