@@ -103,3 +103,6 @@ export const PAGE_SIZE = 10;
 //URL PATH
 export const BOOKINGS_PATH = "bookings";
 export const CHECKIN_PATH = "checkin";
+
+//DARK MODE
+export const DARK_MODE_LOCAL_STORAGE_KEY = "isDarkMode";
