@@ -1,7 +1,11 @@
+import { SETTINGS_TABLE } from "../constant";
 import supabase from "./supabase";
 
 export async function getSettings() {
-  const { data, error } = await supabase.from("settings").select("*").single();
+  const { data, error } = await supabase
+    .from(SETTINGS_TABLE)
+    .select("*")
+    .single();
 
   if (error) {
     console.error(error);
@@ -13,7 +17,7 @@ export async function getSettings() {
 // We expect a newSetting object that looks like {setting: newValue}
 export async function updateSetting(newSetting) {
   const { data, error } = await supabase
-    .from("settings")
+    .from(SETTINGS_TABLE)
     .update(newSetting)
     // There is only ONE row of settings, and it has the ID=1, and so this is the updated one
     .eq("id", 1)

@@ -38,7 +38,6 @@ function CheckinBooking() {
 
   const {
     id: bookingId,
-    guests,
     totalPrice,
     numGuests,
     hasBreakfast,
