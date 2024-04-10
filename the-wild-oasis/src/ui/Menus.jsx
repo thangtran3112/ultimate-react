@@ -88,6 +88,8 @@ const Toggle = ({ id }) => {
 
   //open or close the list
   function handleClick(e) {
+    //stop propagation to prevent the click event to bubbling up, which would close the list
+    e.stopPropagation();
     //find the closest button parent
     const rect = e.target.closest("button").getBoundingClientRect();
     console.log(rect);
@@ -107,7 +109,7 @@ const Toggle = ({ id }) => {
 };
 const List = ({ id, children }) => {
   const { openId, position, close } = useContext(MenusContext);
-  const clickRef = useOutsideClick(close);
+  const clickRef = useOutsideClick(close, false);
   if (openId !== id) return null;
 
   //when we click on '...' icon to open the list, we want the list to go to center of body

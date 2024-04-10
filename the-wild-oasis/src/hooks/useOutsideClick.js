@@ -1,5 +1,10 @@
 import { useEffect, useRef } from "react";
 
+/**
+ * By default, addEventListener is attached on Bubbling Phase
+ * In some case, we want to attach it on Capturing Phase, to avoid click
+ * and click-outside to happens right after each another, which is not desired
+ */
 export const useOutsideClick = (handler, listenCapturing = true) => {
   const ref = useRef();
 

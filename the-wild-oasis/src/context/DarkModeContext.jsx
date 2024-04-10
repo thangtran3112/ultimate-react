@@ -5,8 +5,13 @@ import { DARK_MODE_LOCAL_STORAGE_KEY } from "../constant";
 const DarkModeContext = createContext();
 
 function DarkModeProvider({ children }) {
+  //initially, we will use the default dark mode from Operating system
+  const osDefaultDarkMode = window.matchMedia(
+    "(prefers-color-scheme: dark"
+  ).matches;
+
   const [isDarkMode, setIsDarkMode] = useLocalStorageState(
-    false,
+    osDefaultDarkMode,
     DARK_MODE_LOCAL_STORAGE_KEY
   );
 
