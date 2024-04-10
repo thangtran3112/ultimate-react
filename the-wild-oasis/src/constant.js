@@ -109,3 +109,5 @@ export const CHECKIN_PATH = "checkin";
 
 //DARK MODE
 export const DARK_MODE_LOCAL_STORAGE_KEY = "isDarkMode";
+
+export const TODAY_ACTIVITY = "today-activity";
