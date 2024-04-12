@@ -1,0 +1,19 @@
+{
+  "name": "supabasekeepalive",
+  "version": "1.0.0",
+  "description": "Lambda to keep Supabase alive",
+  "main": "index.js",
+  "scripts": {
+    "build": "rm -rf dist && esbuild index.mjs --bundle --minify --sourcemap --platform=node --target=node20 --outdir=dist",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Thang Tran",
+  "license": "ISC",
+  "dependencies": {
+    "@supabase/supabase-js": "^2.42.3",
+    "dotenv": "^16.4.5"
+  },
+  "devDependencies": {
+    "esbuild": "^0.20.2"
+  }
+}
